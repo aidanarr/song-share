@@ -3,12 +3,16 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const routerSongs = require("./api/routes/songs.routes")
+const routerArtists = require("./api/routes/artists.routes")
 
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/", routerSongs);
+app.use("/", routerArtists);
 
 // server config
 const PORT = process.env.PORT || 5000;
@@ -49,355 +53,343 @@ const authorize = (req, res, next) => {
     next();
 };
 
-// GET songs
-app.get("/songs", async (req, res) => {
-    try {
-        const allSongs = await Song.find().populate("artist", "user");
-        res.status(200).json({
-            success: true,
-            count: allSongs.length,
-            data: allSongs
-        })
-    } catch (error) {
-        res.status(400).json({
-            sucess: false,
-            error: error
-        })
-    }
-});
+// // GET songs
+// app.get("/songs", async (req, res) => {
+    
+// });
 
 // GET songs (filter by id)
-app.get("/songs/:id", async (req, res) => {
+// app.get("/songs/:id", async (req, res) => {
 
-    try {
-        const id = req.params.id;
-        const songs = await Song.findById(id).populate("artist", "user");
+//     try {
+//         const id = req.params.id;
+//         const songs = await Song.findById(id).populate("artist", "user");
     
-        if (results.length === 0) {
-            res.status(400).json({success: false, message: "Not found"});
-        } else {
-            res.status(200).json({success: true, data: songs[0]});
-        }
-    } catch (error) {
-        res.status(400).json({success: false, message: error});
-    }  
-});
+//         if (results.length === 0) {
+//             res.status(400).json({success: false, message: "Not found"});
+//         } else {
+//             res.status(200).json({success: true, data: songs[0]});
+//         }
+//     } catch (error) {
+//         res.status(400).json({success: false, message: error});
+//     }  
+// });
 
 // GET artists
-app.get("/artists", async (req, res) => {
-    try {
-        const allArtists = await Artist.find().populate("songs", "user");
-        res.status(200).json({
-            success: true,
-            count: allArtists.length,
-            data: allArtists
-        })
-    } catch (error) {
-        res.status(400).json({
-            sucess: false,
-            error: error
-        })
-    }
-});
+// app.get("/artists", async (req, res) => {
+//     try {
+//         const allArtists = await Artist.find().populate("songs", "user");
+//         res.status(200).json({
+//             success: true,
+//             count: allArtists.length,
+//             data: allArtists
+//         })
+//     } catch (error) {
+//         res.status(400).json({
+//             sucess: false,
+//             error: error
+//         })
+//     }
+// });
 
 // GET artists (filter by id)
-app.get("/artists/:id", async (req, res) => {
+// app.get("/artists/:id", async (req, res) => {
 
-    try {
-        const id = req.params.id;
-        const artists = await Artist.findById(id).populate("artist", "user");
+//     // try {
+//     //     const id = req.params.id;
+//     //     const artists = await Artist.findById(id);
     
-        if (results.length === 0) {
-            res.status(400).json({success: false, message: "Not found"});
-        } else {
-            res.status(200).json({success: true, data: artists[0]});
-        }
-    } catch (error) {
-        res.status(400).json({success: false, message: error});
-    }  
-});
+//     //     if (results.length === 0) {
+//     //         res.status(400).json({success: false, message: "Not found"});
+//     //     } else {
+//     //         res.status(200).json({success: true, data: artists[0]});
+//     //     }
+//     // } catch (error) {
+//     //     res.status(400).json({success: false, message: error});
+//     // }  
+// });
 
 
 // SIGN UP - LOGIN
 
 // POST (singup)
-app.post("/signup", async (req, res) => {
+// app.post("/signup", async (req, res) => {
     
-    const {user, pass} = req.body;
+//     const {user, pass} = req.body;
 
-    const userResult = await User.find({username: user});
+//     const userResult = await User.find({username: user});
     
-    if (userResult.length === 0) {
-        // user doesn't exist
-        const hasshedPassword = await bcrypt.hash(pass, 10);
-        const newUser = await User.create({
-            username: user,
-            password: hasshedPassword
-        })
-        await newUser.save()
-        res.status(201).json({success: true, message: "Signup successful, welcome!"});
-    } else {
-        // user already exists
-        res.status(200).json({success: false, message: "User already exists"});
-    }
+//     if (userResult.length === 0) {
+//         // user doesn't exist
+//         const hasshedPassword = await bcrypt.hash(pass, 10);
+//         const newUser = await User.create({
+//             username: user,
+//             password: hasshedPassword
+//         })
+//         await newUser.save()
+//         res.status(201).json({success: true, message: "Signup successful, welcome!"});
+//     } else {
+//         // user already exists
+//         res.status(200).json({success: false, message: "User already exists"});
+//     }
 
-});
+// });
 
 // POST (login)
-app.post("/login", async (req, res) => {
+// app.post("/login", async (req, res) => {
 
-    const {user, pass} = req.body;
+//     const {user, pass} = req.body;
 
-    const userResult = await User.find({username: user});
+//     const userResult = await User.find({username: user});
 
-    if (userResult.length !== 0) {
-        // check if password matches
-        const samePassword = await bcrypt.compare(pass, userResult[0].password);
+//     if (userResult.length !== 0) {
+//         // check if password matches
+//         const samePassword = await bcrypt.compare(pass, userResult[0].password);
 
-        if (samePassword) {
-            // password matches
-            const tokenInfo = {user: userResult[0].username, id: userResult[0]._id};
-            const token = jwt.sign(tokenInfo, process.env.SECRET, {expiresIn: "1h"});
-            res.status(201).json({success: true, token: token});
-        } else {
-            // password doesn't match
-            res.status(400).json({success: false, message: "Wrong password"});
-        }
-    } else {
-        res.status(400).json({success: false, message: "User doesn't exist"});
-    }
+//         if (samePassword) {
+//             // password matches
+//             const tokenInfo = {user: userResult[0].username, id: userResult[0]._id};
+//             const token = jwt.sign(tokenInfo, process.env.SECRET, {expiresIn: "1h"});
+//             res.status(201).json({success: true, token: token});
+//         } else {
+//             // password doesn't match
+//             res.status(400).json({success: false, message: "Wrong password"});
+//         }
+//     } else {
+//         res.status(400).json({success: false, message: "User doesn't exist"});
+//     }
 
-})
+// })
 
 // USER MUSIC
 
 // GET user songs
-app.get("/mySongs", authorize, async (req, res) => {
-    try {
-        const allSongs = await Song.find().populate("artist", "user");
-        res.status(200).json({
-            success: true,
-            count: allSongs.length,
-            data: allSongs
-        })
-    } catch (error) {
-        res.status(400).json({success: false, message: error});
-    }
-});
+// app.get("/mySongs", authorize, async (req, res) => {
+//     try {
+//         const allSongs = await Song.find().populate("artist", "user");
+//         res.status(200).json({
+//             success: true,
+//             count: allSongs.length,
+//             data: allSongs
+//         })
+//     } catch (error) {
+//         res.status(400).json({success: false, message: error});
+//     }
+// });
 
 // POST user songs
-app.post("/mySongs/add", async (req, res) => {
+// app.post("/mySongs/add", async (req, res) => {
     
-    const { title, artist, artist2, artist3, artist4, year, album, img, genre, comments, url, user } = req.body;
+//     const { title, artist, artist2, artist3, artist4, year, album, img, genre, comments, url, user } = req.body;
 
-    const artistArray = [artist, artist2, artist3, artist4];
-    // Remove empty fields from array
-    const artists = artistArray.filter(Boolean);
+//     const artistArray = [artist, artist2, artist3, artist4];
+//     // Remove empty fields from array
+//     const artists = artistArray.filter(Boolean);
 
-    // verify song doesn't already exist
-    const alreadyExists = await Song.find({
-        title: title,
-        year: year,
-        album: album        
-    })
+//     // verify song doesn't already exist
+//     const alreadyExists = await Song.find({
+//         title: title,
+//         year: year,
+//         album: album        
+//     })
 
-    if (alreadyExists.length === 0) {
-        try {
-            // find user
-            const userCreator = await User.findOne({username: user});
+//     if (alreadyExists.length === 0) {
+//         try {
+//             // find user
+//             const userCreator = await User.findOne({username: user});
 
-            // create song using body
-            const newSong = await Song.create({
-                title: title,
-                year: year,
-                album: album,
-                img: img,
-                genre: genre,
-                comments: comments,
-                url: url,
-                user: userCreator._id
-            });
+//             // create song using body
+//             const newSong = await Song.create({
+//                 title: title,
+//                 year: year,
+//                 album: album,
+//                 img: img,
+//                 genre: genre,
+//                 comments: comments,
+//                 url: url,
+//                 user: userCreator._id
+//             });
 
-            // add song to user list
-            userCreator.my_songs.push(newSong._id);
+//             // add song to user list
+//             userCreator.my_songs.push(newSong._id);
 
-            // find if artists already exist
-            const songArtist = await Artist.find({name: { $in: artists }});
+//             // find if artists already exist
+//             const songArtist = await Artist.find({name: { $in: artists }});
 
-            // if some artists exist and some don't
-            if (artists.length !== songArtist.length) {
-                let artistsCopy = artists;
-                // add existing artist's id to song and viceversa
-                songArtist.forEach(async (author) => {
-                    newSong.artist.push(author._id);
-                    author.songs.push(newSong._id);
-                    // remove artist from artists array
-                    const i = artistsCopy.indexOf(author.name);
-                    i !== -1 ? artistsCopy.splice(i, 1) : false;
-                    await author.save()
-                });
+//             // if some artists exist and some don't
+//             if (artists.length !== songArtist.length) {
+//                 let artistsCopy = artists;
+//                 // add existing artist's id to song and viceversa
+//                 songArtist.forEach(async (author) => {
+//                     newSong.artist.push(author._id);
+//                     author.songs.push(newSong._id);
+//                     // remove artist from artists array
+//                     const i = artistsCopy.indexOf(author.name);
+//                     i !== -1 ? artistsCopy.splice(i, 1) : false;
+//                     await author.save()
+//                 });
                 
-                // create new artists
-                artistsCopy.forEach(async (author) => {
-                    const newArtist = await Artist.create({
-                        name: author,
-                    })
-                    newArtist.songs.push(newSong._id)
-                    newSong.artist.push(newArtist._id)
-                    await newArtist.save()
-                })        
+//                 // create new artists
+//                 artistsCopy.forEach(async (author) => {
+//                     const newArtist = await Artist.create({
+//                         name: author,
+//                     })
+//                     newArtist.songs.push(newSong._id)
+//                     newSong.artist.push(newArtist._id)
+//                     await newArtist.save()
+//                 })        
                 
-            } else if (artists.length === songArtist.length) {
-                // if all artists already exist
-                songArtist.forEach(async (author) => {
-                    newSong.artist.push(author._id);
-                    author.songs.push(newSong._id);
-                    await author.save()
-                });
-            } else {
-                // if no artist exist
-                artists.forEach(async (author) => {
-                    const newArtist = await Artist.create({
-                        name: author,
-                    })
-                    newArtist.songs.push(newSong._id)
-                    newSong.artist.push(newArtist._id)
-                    await newArtist.save()
-                })
-            }
+//             } else if (artists.length === songArtist.length) {
+//                 // if all artists already exist
+//                 songArtist.forEach(async (author) => {
+//                     newSong.artist.push(author._id);
+//                     author.songs.push(newSong._id);
+//                     await author.save()
+//                 });
+//             } else {
+//                 // if no artist exist
+//                 artists.forEach(async (author) => {
+//                     const newArtist = await Artist.create({
+//                         name: author,
+//                     })
+//                     newArtist.songs.push(newSong._id)
+//                     newSong.artist.push(newArtist._id)
+//                     await newArtist.save()
+//                 })
+//             }
 
-            await userCreator.save()
-            await newSong.save()
+//             await userCreator.save()
+//             await newSong.save()
 
-            res.status(200).json({
-                success: true,
-                song: newSong
-            });
-        } catch (err) {
-            console.error(err)
-        }
+//             res.status(200).json({
+//                 success: true,
+//                 song: newSong
+//             });
+//         } catch (err) {
+//             console.error(err)
+//         }
         
-    } else {
-        res.status(400).json({
-            success: false,
-            message: "This song already exists"
-        });
-    }
+//     } else {
+//         res.status(400).json({
+//             success: false,
+//             message: "This song already exists"
+//         });
+//     }
 
-});
+// });
 
 // POST user artists
 
-app.post("/myArtists/add", async (req, res) => {
+// app.post("/myArtists/add", async (req, res) => {
 
-  const { name, bio, user } = req.body;
+//   const { name, bio, user } = req.body;
 
-  const alreadyExists = await Artist.find({ name: name });
+//   const alreadyExists = await Artist.find({ name: name });
 
-  if (alreadyExists.length === 0) {
-    try {
-      // find user
-      const userCreator = await User.findOne({ username: user });
+//   if (alreadyExists.length === 0) {
+//     try {
+//       // find user
+//       const userCreator = await User.findOne({ username: user });
 
-      // create artist using body
-      const newArtist = await Artist.create({
-        name: name,
-        bio: bio,
-        user: userCreator._id,
-      });
+//       // create artist using body
+//       const newArtist = await Artist.create({
+//         name: name,
+//         bio: bio,
+//         user: userCreator._id,
+//       });
 
-      // add artist to user list
-      userCreator.my_artists.push(newArtist._id);
+//       // add artist to user list
+//       userCreator.my_artists.push(newArtist._id);
 
-      await userCreator.save();
-      await newArtist.save();
+//       await userCreator.save();
+//       await newArtist.save();
 
-    } catch (err) {
-      console.error(err);
-    }
-  } else {
-    res.status(400).json({
-      success: false,
-      message: "This artist already exists",
-    });
-  }
-});
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   } else {
+//     res.status(400).json({
+//       success: false,
+//       message: "This artist already exists",
+//     });
+//   }
+// });
 
 // PUT modify song
-app.put("/update-song/:_id", async (req, res) => {
+// app.put("/update-song/:_id", async (req, res) => {
     
-    const id = req.params;
-    const { title, artist, artist2, artist3, artist4, year, album, img, genre, comments, url } = req.body; 
-    const artistArray = [artist, artist2, artist3, artist4];
-    // Remove empty fields from array
-    const artists = artistArray.filter(Boolean);
+//     const id = req.params;
+//     const { title, artist, artist2, artist3, artist4, year, album, img, genre, comments, url } = req.body; 
+//     const artistArray = [artist, artist2, artist3, artist4];
+//     // Remove empty fields from array
+//     const artists = artistArray.filter(Boolean);
 
-    // find if artists already exist
-    const songArtist = await Artist.find({name: { $in: artists }});
+//     // find if artists already exist
+//     const songArtist = await Artist.find({name: { $in: artists }});
 
-    let artistId = [];
+//     let artistId = [];
 
-    let updatedData = {
-      title: title,
-      artist: artistId,
-      year: year,
-      album: album,
-      img: img,
-      genre: genre,
-      comments: comments,
-      url: url,
-    };
+//     let updatedData = {
+//       title: title,
+//       artist: artistId,
+//       year: year,
+//       album: album,
+//       img: img,
+//       genre: genre,
+//       comments: comments,
+//       url: url,
+//     };
 
-    // if some artists exist and some don't
-    if (artists.length !== songArtist.length) {
-        let artistsCopy = artists;
+//     // if some artists exist and some don't
+//     if (artists.length !== songArtist.length) {
+//         let artistsCopy = artists;
                
-        songArtist.forEach(async (author) => {
-            //add artist id to updated data
-            artistId.push(author._id);
+//         songArtist.forEach(async (author) => {
+//             //add artist id to updated data
+//             artistId.push(author._id);
 
-            //add song to artist if it doesn't exist
-            const songIndex = author.songs.includes(id);
-            console.log(songIndex);
-            !songIndex ? author.songs.push(id) : false;
+//             //add song to artist if it doesn't exist
+//             const songIndex = author.songs.includes(id);
+//             console.log(songIndex);
+//             !songIndex ? author.songs.push(id) : false;
 
-            // const artistSongs = await Song.findOne({
-            //     name: author,
-            //     songs: { $in: id }},
-            // );
-            // !artistSongs ? author.songs.push(id) : false;
+//             // const artistSongs = await Song.findOne({
+//             //     name: author,
+//             //     songs: { $in: id }},
+//             // );
+//             // !artistSongs ? author.songs.push(id) : false;
 
-            // remove artist from artists array
-            const i = artistsCopy.indexOf(author.name);
-            i !== -1 ? artistsCopy.splice(i, 1) : false;
+//             // remove artist from artists array
+//             const i = artistsCopy.indexOf(author.name);
+//             i !== -1 ? artistsCopy.splice(i, 1) : false;
             
-            await author.save()
-        });
+//             await author.save()
+//         });
 
-        // create new artists
-        artistsCopy.forEach(async (author) => {
-            const newArtist = await Artist.create({
-                name: author,
-            })
-            newArtist.songs.push(id)
-            artistId.push(newArtist._id);
+//         // create new artists
+//         artistsCopy.forEach(async (author) => {
+//             const newArtist = await Artist.create({
+//                 name: author,
+//             })
+//             newArtist.songs.push(id)
+//             artistId.push(newArtist._id);
 
-            await newArtist.save()
-        });
+//             await newArtist.save()
+//         });
         
-        await Song.findOneAndUpdate( id, 
-            {
-                $set: updatedData
-            },
-            {
-                new: true,
-                runValidators: true
-            }).then(song => {
-                res.status(200).json({success: true, updated_song: song})
-                console.log(artistId)
-            }).catch(err => {
-                console.error(err)
-            })
+//         await Song.findOneAndUpdate( id, 
+//             {
+//                 $set: updatedData
+//             },
+//             {
+//                 new: true,
+//                 runValidators: true
+//             }).then(song => {
+//                 res.status(200).json({success: true, updated_song: song})
+//                 console.log(artistId)
+//             }).catch(err => {
+//                 console.error(err)
+//             })
         
     // } else if (artists.length === songArtist.length) {
     //     // if all artists already exist
@@ -406,7 +398,7 @@ app.put("/update-song/:_id", async (req, res) => {
     //         author.songs.push(newSong._id);
     //         await author.save()
     //     });
-    } else {
+    // } else {
         // // if no artist exist
         // artists.forEach(async (author) => {
         //     const newArtist = await Artist.create({
@@ -416,7 +408,7 @@ app.put("/update-song/:_id", async (req, res) => {
         //     newSong.artist.push(newArtist._id)
         //     await newArtist.save()
         // })
-    }
+    // }
 
 
 
@@ -433,24 +425,14 @@ app.put("/update-song/:_id", async (req, res) => {
     //         console.error(err)
     //     })
         
-});
+// });
 
-// delete en la tabla del usuario
-app.delete("/myPets/:id", async (req, res) => {
-    const conn = await getConnection();
-    const idPet = req.params.id;
-    const deletePet = "DELETE from userpets WHERE id = ?;";
-    const [results] = await conn.query(deletePet, [idPet]);
+// delete 
+// app.delete("/songs/delete/:id", async (req, res) => {
+    
+//     const id = req.params.id;
+    
 
-
-
-    if (results.affectedRows > 0) {
-        res.status(200).json({success: true, message: "Registro borrado" });
-    } else {
-        res.status(200).json({success: false, message: "No existe una mascota con ese id"})
-    }
-})
+// })
 
 // rutas estáticas
-const staticUrl = "./src/public";
-app.use(express.static(staticUrl));
