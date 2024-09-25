@@ -142,49 +142,47 @@ async function addSong(req, res) {
 }
 
 async function updateSong(req, res) {
-  try {
-    const id = req.params.id;
-    const song = await Song.findOne({ _id: id });
+  const id = req.params.id;
+  const song = await Song.findOne({ _id: id });
+  const {
+    title,
+    artist,
+    artist2,
+    artist3,
+    artist4,
+    year,
+    album,
+    img,
+    genre,
+    url,
+    user,
+  } = req.body;
+  // find user
+  const userCreator = await User.findOne({ username: user });
+  if (userCreator._id.equals(song.user)) {
+    try {
+      const artistArray = [artist, artist2, artist3, artist4];
 
-    const {
-      title,
-      artist,
-      artist2,
-      artist3,
-      artist4,
-      year,
-      album,
-      img,
-      genre,
-      url,
-      user,
-    } = req.body;
+      // Remove empty fields from array
+      const artists = artistArray.filter(Boolean);
 
-    const artistArray = [artist, artist2, artist3, artist4];
+      // find if artists already exist
+      const songArtist = await Artist.find({ name: { $in: artists } });
 
-    // Remove empty fields from array
-    const artists = artistArray.filter(Boolean);
+      let artistId = [];
 
-    // find if artists already exist
-    const songArtist = await Artist.find({ name: { $in: artists } });
+      let updatedData = {
+        title: title,
+        artist: artistId,
+        year: year,
+        album: album,
+        img: img,
+        genre: genre,
+        url: url,
+      };
 
-    // find user
-    const userCreator = await User.findOne({ username: user });
+      // check if current user equals song creator user
 
-    let artistId = [];
-
-    let updatedData = {
-      title: title,
-      artist: artistId,
-      year: year,
-      album: album,
-      img: img,
-      genre: genre,
-      url: url,
-    };
-
-    // check if current user equals song creator user
-    if (userCreator._id.equals(song.user)) {
       if (songArtist.length === 0) {
         // if no artist exist
 
@@ -301,17 +299,18 @@ async function updateSong(req, res) {
             console.error(err);
           });
       }
-    } else {
-      res
-        .status(400)
-        .json({ success: false, message: "You cannot modify this song" });
+    } catch (error) {
+      res.status(400).json({ success: false, message: error });
     }
-  } catch (error) {
-    res.status(400).json({ success: false, message: error });
+  } else {
+    res
+      .status(400)
+      .json({ success: false, message: "You cannot modify this song" });
   }
 }
 
 async function deleteSong(req, res) {
+
   const id = req.params.id;
   const { user } = req.body;
 

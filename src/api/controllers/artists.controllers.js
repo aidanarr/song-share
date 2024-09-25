@@ -107,6 +107,9 @@ async function updateArtist(req, res) {
             $set: updatedData,
           }
         );
+        
+        res.status(200).json({success: true, modified_data: updatedData});
+        
       } catch (error) {
         res.status(400).json({ success: false, message: error });
       }
