@@ -84,5 +84,68 @@ async function addArtist(req, res) {
     }
 }
 
-module.exports = { getAllArtists, getArtistById, addArtist }
+async function updateArtist(req, res) {
+  try {
+    const id = req.params.id;
+    const { name, bio, img, user } = req.body;
+    const updatedData = {
+      name: name,
+      img: img,
+      bio: bio,
+    };
+
+    const userCreator = await User.findOne({ username: user });
+    const artist = await Artist.findOne({ _id: id });
+
+    if (userCreator._id.equals(artist.user)) {
+      try {
+        await Artist.findOneAndUpdate(
+          {
+            _id: id,
+          },
+          {
+            $set: updatedData,
+          }
+        );
+      } catch (error) {
+        res.status(400).json({ success: false, message: error });
+      }
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "You cannot modify this artist" });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error });
+  }
+}
+
+async function deleteArtist(req, res) {
+  const id = req.params.id;
+  const user = req.body.user;
+
+  const userCreator = await User.findOne({ username: user });
+  const artist = await Artist.findOne({ _id: id });
+
+  if (userCreator._id.equals(artist.user)) {
+    try {
+      await Artist.findOneAndDelete({
+        _id: id,
+      }).then(() => {
+        res.status(200).json({
+          success: true,
+          message: "successfully deleted, artist id: " + id,
+        });
+      });
+    } catch (error) {
+      res.status(400).json({ success: false, message: error });
+    }
+  } else {
+    res
+      .status(400)
+      .json({ success: false, message: "You cannot delete this artist" });
+  }
+}
+
+module.exports = { getAllArtists, getArtistById, addArtist, updateArtist, deleteArtist }
 
