@@ -2,7 +2,7 @@ const Song = require("../models/song.model");
 const Artist = require("../models/artist.model");
 const User = require("../models/user.model");
 
-async function getAllArtists(req, res) {
+async function  getAllArtists(req, res) {
     try {
         const allArtists = await Artist.find();
         

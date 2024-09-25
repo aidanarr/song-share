@@ -1,7 +1,8 @@
 const Song = require("../models/song.model");
 const Artist = require("../models/artist.model");
 const User = require("../models/user.model");
-
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 async function signup(req, res){
     try{
         const {user, pass} = req.body;
@@ -29,7 +30,7 @@ async function signup(req, res){
     }
 }
 
-async function login(req, res) {
+async function login(req, res){
     try {
             const { user, pass } = req.body;
 
@@ -70,4 +71,49 @@ async function login(req, res) {
     }
 }
 
-module.exports = { signup, login }
+async function deleteUser(req, res){
+  const id = req.params.id
+  const user = req.body.user;
+
+  const userCreator = await User.findOne({ username: user });
+
+  if (userCreator._id.equals(id)){
+    try {
+      await User.findOneAndDelete({
+        _id: id,
+      }).then(() => {
+        res.status(200).json({
+          success: true,
+          message: "successfully deleted user " + user,
+        });
+      });
+    } catch (error) {
+      res.status(400).json({ success: false, message: error });
+    }
+  } else {
+    res
+      .status(400)
+      .json({ success: false, message: "You cannot delete this user" });
+  }
+}
+
+async function userDetails(req, res){
+  try {
+    const id = req.params.id;
+    const user = await User.findById(id).populate("my_songs");
+    const userData= {
+      username: user.username,
+      my_songs: user.my_songs
+    };
+
+    if (user.length === 0) {
+      res.status(400).json({ success: false, message: "Not found" });
+    } else {
+      res.status(200).json({ success: true, data: userData });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: error });
+  }
+}
+
+module.exports = { signup, login, deleteUser, userDetails }
