@@ -185,8 +185,49 @@ async function updateSong(req, res) {
 
     // check if current user equals song creator user
     if (userCreator._id.equals(song.user)) {
-      // if some artists exist and some don't
-      if (artists.length !== songArtist.length) {
+      if (songArtist.length === 0) {
+        // if no artist exist
+
+        await Song.findOneAndUpdate(
+          {
+            _id: id,
+          },
+          {
+            $set: updatedData,
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+
+        artists
+          .forEach(async (author) => {
+            const newArtist = await Artist.create({
+              name: author,
+              user: userCreator._id,
+            });
+            artistId.push(newArtist._id);
+            await newArtist.save();
+
+            await Song.findOneAndUpdate(
+              {
+                _id: id,
+              },
+              {
+                $push: newArtist._id,
+              },
+              {
+                new: true,
+                runValidators: true,
+              }
+            );
+          })
+          .then(() =>
+            res.status(200).json({ success: true, updated_data: updatedData })
+          );
+      } else if (artists.length !== songArtist.length) {
+        // if some artists exist and some don't
         let artistsCopy = artists;
 
         songArtist.forEach((author) => {
@@ -195,29 +236,6 @@ async function updateSong(req, res) {
           // remove artist from artists array
           const i = artistsCopy.indexOf(author.name);
           i !== -1 ? artistsCopy.splice(i, 1) : false;
-        });
-
-        // create new artists
-        artistsCopy.forEach(async (author) => {
-          const newArtist = await Artist.create({
-            name: author,
-            user: userCreator._id,
-          });
-
-          artistId.push(newArtist._id);
-          await newArtist.save();
-          await Song.findOneAndUpdate(
-            {
-              _id: id,
-            },
-            {
-              $push: { artist: newArtist.id },
-            },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
         });
 
         await Song.findOneAndUpdate(
@@ -233,9 +251,33 @@ async function updateSong(req, res) {
           }
         );
 
-        res.status(200).json({ success: true, updated_data: updatedData });
+        // create new artists
+        artistsCopy.forEach(async (author) => {
+          const newArtist = await Artist.create({
+            name: author,
+            user: userCreator._id,
+          });
+          artistId.push(newArtist._id);
+          await newArtist.save();
+
+          await Song.findOneAndUpdate(
+            {
+              _id: id,
+            },
+            {
+              $push: { artist: newArtist._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+        });
+
+        res.status(200).json({ success: true, song_id: id });
       } else if (artists.length === songArtist.length) {
         // if all artists already exist
+
         songArtist.forEach((author) => {
           artistId.push(author._id);
         });
@@ -252,48 +294,12 @@ async function updateSong(req, res) {
             runValidators: true,
           }
         )
-          .then(() => {
-            res.status(200).json({ success: true, updated_data: updatedData });
+          .then((song) => {
+            res.status(200).json({ success: true, updated_data: song });
           })
           .catch((err) => {
             console.error(err);
           });
-      } else {
-        // if no artist exist
-        artists.forEach(async (author) => {
-          const newArtist = await Artist.create({
-            name: author,
-            user: userCreator._id,
-          });
-          await newArtist.save();
-          await Song.findOneAndUpdate(
-            {
-              _id: id,
-            },
-            {
-              $push: newArtist._id,
-            },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
-        });
-
-        await Song.findOneAndUpdate(
-          {
-            _id: id,
-          },
-          {
-            $set: updatedData,
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-
-        res.status(200).json({ success: true, updated_data: updatedData });
       }
     } else {
       res
@@ -326,12 +332,10 @@ async function deleteSong(req, res) {
         _id: id,
       })
         .then(() => {
-          res
-            .status(200)
-            .json({
-              success: true,
-              message: "successfully deleted, song id: " + id,
-            });
+          res.status(200).json({
+            success: true,
+            message: "successfully deleted, song id: " + id,
+          });
         })
         .catch((err) => {
           console.error(err);
