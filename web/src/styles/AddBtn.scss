@@ -1,0 +1,7 @@
+.add {
+    border: 2px solid salmon;
+    &:hover{
+        cursor: pointer;
+        background-color: rgb(255, 194, 188);
+    }
+}

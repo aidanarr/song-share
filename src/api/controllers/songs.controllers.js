@@ -12,7 +12,7 @@ async function getAllSongs(req, res) {
     });
   } catch (error) {
     res.status(400).json({
-      sucess: false,
+      success: false,
       error: error,
     });
   }
@@ -21,12 +21,12 @@ async function getAllSongs(req, res) {
 async function getSongById(req, res) {
   try {
     const id = req.params.id;
-    const songs = await Song.findById(id).populate("artist");
+    const songs = await Song.findById(id).populate("artist").populate("user", "username");
 
     if (songs.length === 0) {
       res.status(400).json({ success: false, message: "Not found" });
     } else {
-      res.status(200).json({ success: true, data: songs[0] });
+      res.status(200).json({ success: true, data: songs,});
     }
   } catch (error) {
     res.status(400).json({ success: false, message: error });
@@ -169,11 +169,11 @@ async function updateSong(req, res) {
       // find if artists already exist
       const songArtist = await Artist.find({ name: { $in: artists } });
 
-      let artistId = [];
+      // let artistId = [];
 
       let updatedData = {
         title: title,
-        artist: artistId,
+        artist: [],
         year: year,
         album: album,
         img: img,
@@ -182,9 +182,18 @@ async function updateSong(req, res) {
       };
 
       // check if current user equals song creator user
-
+      
       if (songArtist.length === 0) {
         // if no artist exist
+        const artistArray = artists.map((artist) => {
+          return {
+            name: artist,
+            user: userCreator._id
+          }
+        })
+        const newArtists = await Artist.insertMany(artistArray)
+        const artistId = newArtists.map((artist) => artist._id)
+        updatedData.artist = artistId
 
         await Song.findOneAndUpdate(
           {
@@ -199,43 +208,31 @@ async function updateSong(req, res) {
           }
         );
 
-        artists
-          .forEach(async (author) => {
-            const newArtist = await Artist.create({
-              name: author,
-              user: userCreator._id,
-            });
-            artistId.push(newArtist._id);
-            await newArtist.save();
+        res.status(200).json({ success: true, updated_data: updatedData })
 
-            await Song.findOneAndUpdate(
-              {
-                _id: id,
-              },
-              {
-                $push: newArtist._id,
-              },
-              {
-                new: true,
-                runValidators: true,
-              }
-            );
-          })
-          .then(() =>
-            res.status(200).json({ success: true, updated_data: updatedData })
-          );
       } else if (artists.length !== songArtist.length) {
         // if some artists exist and some don't
-        let artistsCopy = artists;
 
-        songArtist.forEach((author) => {
-          //add artist id to updated data
-          artistId.push(author._id);
-          // remove artist from artists array
-          const i = artistsCopy.indexOf(author.name);
-          i !== -1 ? artistsCopy.splice(i, 1) : false;
+        //create new artists
+
+        const artistNames = songArtist.map((artist) => artist.name);
+        const newArtistsNames = artists.filter((artist) => !artistNames.includes(artist));
+        const artistArray = newArtistsNames.map((artist) => {
+          return {
+            name: artist,
+            user: userCreator._id
+          }
         });
+        const newArtists = await Artist.insertMany(artistArray);
+        const artistId = newArtists.map((artist) => artist._id);
+        updatedData.artist = artistId;
 
+        //add existing artists to updatedData
+        const existingArtistsId = songArtist.map((artist) => artist._id);
+        const allArtistIds = updatedData.artist.concat(existingArtistsId);
+
+        updatedData.artist = allArtistIds;
+    
         await Song.findOneAndUpdate(
           {
             _id: id,
@@ -249,37 +246,13 @@ async function updateSong(req, res) {
           }
         );
 
-        // create new artists
-        artistsCopy.forEach(async (author) => {
-          const newArtist = await Artist.create({
-            name: author,
-            user: userCreator._id,
-          });
-          artistId.push(newArtist._id);
-          await newArtist.save();
+        res.status(200).json({ success: true, updated_data: updatedData })
 
-          await Song.findOneAndUpdate(
-            {
-              _id: id,
-            },
-            {
-              $push: { artist: newArtist._id },
-            },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
-        });
-
-        res.status(200).json({ success: true, song_id: id });
       } else if (artists.length === songArtist.length) {
         // if all artists already exist
-
-        songArtist.forEach((author) => {
-          artistId.push(author._id);
-        });
-
+        const existingArtistsId = songArtist.map((artist) => artist._id);
+        updatedData.artist = existingArtistsId;
+        console.log(existingArtistsId)
         await Song.findOneAndUpdate(
           {
             _id: id,
@@ -292,12 +265,7 @@ async function updateSong(req, res) {
             runValidators: true,
           }
         )
-          .then((song) => {
-            res.status(200).json({ success: true, updated_data: song });
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        res.status(200).json({ success: true, updated_data: updatedData })
       }
     } catch (error) {
       res.status(400).json({ success: false, message: error });

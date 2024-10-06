@@ -25,7 +25,7 @@ async function getArtistById(req, res) {
         const id = req.params.id;
         const artist = await Artist.findById(id);
 
-        const allSongs = await Song.find().populate("artist");
+        const allSongs = await Song.find().populate("artist").populate("user", "username");
 
         const cleanSongs = allSongs.map((song) => {
             const songObject = {
@@ -70,6 +70,11 @@ async function addArtist(req, res) {
           });
 
           await newArtist.save();
+
+          res.status(200).json({
+            success: true,
+            artist: newArtist,
+          });
         } catch (err) {
           console.error(err);
         }

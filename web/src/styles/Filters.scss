@@ -1,0 +1,36 @@
+.filters-text{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    min-width: 200px;
+}
+
+.filters{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    overflow: hidden;
+    height: 0px;
+    transition: all 1s;
+}
+
+.filters-checkbox {
+    display: none;
+
+    &:checked + .filters {
+        display: flex;
+        height: 150px;
+    }
+
+}
+
+.filter-icon{
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: plum;
+    cursor: pointer;
+}
+

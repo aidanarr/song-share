@@ -3,6 +3,7 @@ const Artist = require("../models/artist.model");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 async function signup(req, res){
     try{
         const {user, pass} = req.body;
@@ -52,7 +53,7 @@ async function login(req, res){
                 const token = jwt.sign(tokenInfo, process.env.SECRET, {
                   expiresIn: "1h",
                 });
-                res.status(201).json({ success: true, token: token });
+                res.status(201).json({ success: true, token: token, message: "Successfully logged in!" });
               } else {
                 // password doesn't match
                 res
