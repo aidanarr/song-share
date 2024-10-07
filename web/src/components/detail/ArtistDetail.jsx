@@ -1,9 +1,10 @@
 import { useParams, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import fetchArtistId from "/src/services/fetchArtistId.js"
+import fetchDeleteArtist from "/src/services/fetchDeleteArtist.js"
 import NotFound from "../common/NotFound.jsx"
 
-const ArtistDetail = ({ setLoader, user }) => {
+const ArtistDetail = ({ setLoader, user, token }) => {
 
   const [artist, setArtist] = useState({});
 
@@ -31,6 +32,25 @@ const ArtistDetail = ({ setLoader, user }) => {
     } else return false
   }
 
+  const handleDelete = (ev) => {
+    ev.preventDefault()
+    try {
+      fetchDeleteArtist(user, id, token).then((response) => {
+        if (response.success) {
+          console.log(response)
+        } else console.log("couldn't delete")
+      })
+    }catch (err) {
+      console.error(err)
+    }
+  };
+
+  const renderDeleteBtn = () => {
+    if (artist.user.username === user) {
+      return <button onClick={handleDelete}>Delete artist</button>
+    } else return false
+  };
+
   return (
     <div>
       {
@@ -40,6 +60,7 @@ const ArtistDetail = ({ setLoader, user }) => {
           <p>{artist.bio}</p>
           <img src={artist.img} />
           {renderEditBtn()}
+          {renderDeleteBtn()}
         </article>
         : <NotFound />
       }

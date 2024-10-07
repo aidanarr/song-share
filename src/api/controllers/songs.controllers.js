@@ -284,8 +284,7 @@ async function deleteSong(req, res) {
 
   const userCreator = await User.findOne({ username: user });
   const song = await Song.findOne({ _id: id });
-  console.log(userCreator)
-  console.log(song)
+
   if (userCreator._id.equals(song.user)) {
     try {
       await User.findOneAndUpdate(

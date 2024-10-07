@@ -1,6 +1,6 @@
 
-const fetchDeleteSong = (user, id, token) => {
-    return fetch("http://localhost:5000/songs/delete/" + id, {
+const fetchDeleteArtist = (user, id, token) => {
+    return fetch("http://localhost:5000/artists/delete/" + id, {
       method: "DELETE",
       body: JSON.stringify({
         user: user
@@ -17,4 +17,4 @@ const fetchDeleteSong = (user, id, token) => {
   })
 };
 
-export default fetchDeleteSong
+export default fetchDeleteArtist
