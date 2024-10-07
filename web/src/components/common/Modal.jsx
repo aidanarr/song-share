@@ -1,12 +1,33 @@
 import "/src/styles/Modal.scss"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-export const Modal = ({newSongId, newArtistId, modalId, setShowSongs}) => {
+export const Modal = ({newSongId, newArtistId, modalId, setShowSongs, setModal}) => {
 
   const navigate = useNavigate();
 
-  const handleClick = (ev) => {
-    ev.preventDefault()
+  const handleClickNew = (ev) => {
+    ev.preventDefault();
+    setModal(false);
+    if (modalId === "song-btn") {
+      navigate("/song/" + newSongId)
+    } else if (modalId === "artist-btn") {
+      navigate("/artist/" + newArtistId)
+    }
+  }
+
+  const handleClickAdd = (ev) => {
+    ev.preventDefault();
+    setModal(false);
+    if (modalId === "song.btn") {
+      navigate("/song/add")
+    } else if (modalId === "artist-btn") {
+      navigate("/artist/add")
+    }
+  }
+
+  const handleClickBrowse = (ev) => {
+    ev.preventDefault();
+    setModal(false);
     if (modalId === "song-btn") {
       setShowSongs(true);
       navigate("/")
@@ -14,35 +35,14 @@ export const Modal = ({newSongId, newArtistId, modalId, setShowSongs}) => {
       setShowSongs(false);
       navigate("/")
     }
-    
   }
 
-  const renderModal = () => {
-    if (modalId === "song-btn") {
-      return <><p>Successfully added!</p>
-      <Link to={`/song/${newSongId}`}>
-        <button>See new song</button>
-      </Link>
-      <Link to="/song/add">
-        <button>Add another song</button>
-      </Link>
-      <button onClick={handleClick}>Browse songs</button></>
-      
-    } else if (modalId === "artist-btn") {
-      return <><p>Successfully added!</p>
-      <Link to={`/song/${newArtistId}`}>
-        <button>See new artist</button>
-      </Link>
-      <Link to="/artist/add">
-        <button>Add another artist</button>
-      </Link>
-      <button onClick={handleClick}>Browse artists</button></>
-    } else return false
-  }
   return (
     <div className="modal">
-    <div className="modal-window">
-        {renderModal()}
+      <div className="modal-window">
+        <button onClick={handleClickNew}>See new {modalId === "song-btn" ? "song" : "artist"}</button>
+        <button onClick={handleClickAdd}>Add another {modalId === "song-btn" ? "song" : "artist"}</button>
+        <button onClick={handleClickBrowse}>Browse {modalId === "song-btn" ? "songs" : "artists"}</button>
       </div>
     <div className="modal-bg">
     </div>

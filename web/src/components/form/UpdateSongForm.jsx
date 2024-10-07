@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import fetchAddSong from "/src/services/fetchAddSong.js"
+import { Link, useParams, useNavigate } from "react-router-dom";
+import fetchSongId from "/src/services/fetchSongId.js"
+import fetchUpdateSong from "/src/services/fetchUpdateSong.js"
 
-const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged }) => {
+const UpdateSongForm = ({ user, token, setLoader }) => {
+
+  const {id} = useParams();
 
   const [songData, setSongData] = useState({});
   const [inputValue, setInputValue] = useState({
@@ -17,19 +20,37 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
     genre: "",
     url: "",
   })
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setSongData({...songData, user: user})
     setMessage("");
-  }, [isLogged])
-
-  const [message, setMessage] = useState("");
+    try {
+      setSongData({...songData, user: user});
+      fetchSongId(id).then((data) => {
+        const artistNames = data.id ? data.artist.map((artist) => artist.name) : false;
+        setInputValue({
+          title: data.title,
+          artist: artistNames[0],
+          artist2: artistNames[1] ? artistNames[1] : "",
+          artist3: artistNames[2] ? artistNames[2] : "",
+          artist4: artistNames[3] ? artistNames[3] : "",
+          year: data.year,
+          album: data.album,
+          img: data.img,
+          genre: data.genre,
+          url: data.url,
+        })
+      });      
+    }catch (err){
+      console.error(err)
+    }
+  }, [id])
 
   const handleInput = (ev) => {
     const value = ev.target.value;
     const id = ev.target.id;
     setSongData({...songData, [id]: value})
-    
   };
 
   const handleChange = (ev) => {
@@ -40,33 +61,26 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
 
   const handleClick = (ev) => {
     ev.preventDefault();
-    setSongData({...songData, user: user});
-    fetchAddSong(songData, token).then((response) => {
-      if (response.success) {
-        setInputValue({
-          title: "",
-          artist: "",
-          artist2: "",
-          artist3: "",
-          artist4: "",
-          year: "",
-          album: "",
-          img: "",
-          genre: "",
-          url: ""
-        });
-        setModalId(ev.target.id)
-        setModal(true);
-        setNewSongId(response.song._id);
-      } else {
-        setMessage(response.message)
-      }
-    })
+    try {
+      fetchUpdateSong(songData, token, id).then((response) => {
+        if (response.success) {
+          setLoader(true);
+          setTimeout(() => {
+            setLoader(false)
+            navigate("/song/" + id)
+          }, 1000)
+        } else {
+          setMessage(response.message)
+        }
+      })
+    } catch (err){
+      console.error(err)
+    }
+    
   }
 
   return (
     <div>
-      
       <form onInput={handleInput}>
         Title:
         <input onChange={handleChange} type="text" name="title" id="title" value={inputValue.title} />
@@ -90,7 +104,7 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
           <input onChange={handleChange} type="text" name="img" id="img" value={inputValue.img} />
           Link:
           <input onChange={handleChange} type="text" name="url" id="url" value={inputValue.url}/>
-          <button id="song-btn" onClick={handleClick}>Add song</button>
+          <button id="song-btn" onClick={handleClick}>Update song</button>
           <p>{message ? message : false}</p>
           <Link to="/"><p>Back</p></Link>
       </form>
@@ -98,4 +112,4 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
   )
 }
 
-export default SongForm
+export default UpdateSongForm

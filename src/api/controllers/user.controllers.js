@@ -53,7 +53,7 @@ async function login(req, res){
                 const token = jwt.sign(tokenInfo, process.env.SECRET, {
                   expiresIn: "1h",
                 });
-                res.status(201).json({ success: true, token: token, message: "Successfully logged in!" });
+                res.status(201).json({ success: true, token: token, id: userResult[0]._id, message: "Successfully logged in!" });
               } else {
                 // password doesn't match
                 res

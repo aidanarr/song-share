@@ -13,12 +13,16 @@ import SongDetail from "./detail/SongDetail.jsx";
 import ArtistDetail from "./detail/ArtistDetail.jsx";
 import SongForm from "./form/SongForm.jsx"
 import ArtistForm from "./form/ArtistForm.jsx"
+import UpdateSongForm from "./form/UpdateSongForm.jsx"
+import UpdateArtistForm from "./form/UpdateArtistForm.jsx"
 import Modal from "./common/Modal.jsx"
+import UserProfile from "./user/UserProfile.jsx"
 
 function App() {
   const [token, setToken] = useState("");
   const [user, setUser]= useState("")
   const [loader, setLoader] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   //modal window
   const [modal, setModal] = useState(false);
@@ -32,25 +36,30 @@ function App() {
       <div className="page">
         {modal ? <Modal setModal={setModal} setShowSongs={setShowSongs} modalId={modalId} newSongId={newSongId} newArtistId={newArtistId} /> : false}
         {loader ? <Loader /> : false}
-        <Header setToken={setToken} setUser={setUser} setLoader={setLoader} />
+        <Header isLogged={isLogged} setIsLogged={setIsLogged} setToken={setToken} setUser={setUser} setLoader={setLoader} />
         <Sidebar />
         <Routes>
           <Route path="/" element={
           <Main showSongs={showSongs} setShowSongs={setShowSongs} />
           } />
           <Route path="/song/:id" element={
-          <SongDetail/>
+          <SongDetail token={token} user={user} setLoader={setLoader} />
           }/>
           <Route path="/artist/:id" element={
-          <ArtistDetail/>
+          <ArtistDetail user={user} setLoader={setLoader} />
           }/>
           <Route path="/song/add" element={
-            <SongForm setModalId={setModalId} setNewSongId={setNewSongId} setModal={setModal} user={user} token={token} />
+            <SongForm isLogged={isLogged} setModalId={setModalId} setNewSongId={setNewSongId} setModal={setModal} user={user} token={token} />
           } />
           <Route path="/artist/add" element={
             <ArtistForm setModalId={setModalId} setNewArtistId={setNewArtistId} setModal={setModal} user={user} token={token}/>
           } />
-          <Route ath="*" element={
+          <Route path="/user/:id" element={<UserProfile />} />
+          <Route path="/song/update/:id" element={<UpdateSongForm setLoader={setLoader}
+          user={user} token={token}/>} />
+          <Route path="/artist/update/:id" element={<UpdateArtistForm setLoader={setLoader}
+          user={user} token={token}/>} />
+          <Route path="*" element={
             <NotFound />
           } />
         </Routes>

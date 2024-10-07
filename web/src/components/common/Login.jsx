@@ -2,7 +2,7 @@ import { useState } from "react"
 import fetchLogin from "/src/services/fetchLogin.js"
 import fetchSignup from "/src/services/fetchSignup.js"
 
-const Login = ({ setToken, setLoader, setUser }) => {
+const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
 
   const [userData, setUserData] = useState({
     user: "",
@@ -26,8 +26,15 @@ const Login = ({ setToken, setLoader, setUser }) => {
             setToken(response.token)
             setUser(userData.user)
             setLoader(true)
+            setUserId(response.id)
+            setErrorMsg("")
             setTimeout(() => {
               setLoader(false)
+              setIsLogged(true)
+              setUserData({
+                user: "",
+                pass: "",
+              })
             }, 1000)
           } else if (!response.success) {
             setErrorMsg(response.message)
@@ -53,9 +60,9 @@ const Login = ({ setToken, setLoader, setUser }) => {
       <div>
         <form>
           <label htmlFor="user">Username</label>
-          <input onInput={handleInput} id="user" name="user" type="text" />
+          <input onChange={handleInput} id="user" name="user" type="text" value={userData.user} />
           <label htmlFor="pass">Password</label>
-          <input onInput={handleInput} id="pass" name="pass" type="password" />
+          <input onChange={handleInput} id="pass" name="pass" type="password" value={userData.pass} />
           <div>
             <button onClick={handleClick} id="signup">Signup</button>
             <button onClick={handleClick} id="login">Login</button>

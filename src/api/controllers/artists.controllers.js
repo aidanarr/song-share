@@ -23,7 +23,7 @@ async function  getAllArtists(req, res) {
 async function getArtistById(req, res) {
     try {
         const id = req.params.id;
-        const artist = await Artist.findById(id);
+        const artist = await Artist.findById(id).populate("user", "username");
 
         const allSongs = await Song.find().populate("artist").populate("user", "username");
 

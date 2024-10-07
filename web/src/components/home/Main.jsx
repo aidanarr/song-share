@@ -26,9 +26,9 @@ const Main = ({showSongs, setShowSongs}) => {
     <>
     <main className="main">
         <form className="switch">
-          <input onClick={handleClick} className="switch__radio" type="radio" id="songs" name="switch" value="songs" defaultChecked />
+          <input onClick={handleClick} className="switch__radio" type="radio" id="songs" name="switch" value="songs" checked={showSongs} />
           <label className="switch__label" htmlFor="songs"><div className="switch__label--text">Songs</div></label>
-          <input onClick={handleClick}  className="switch__radio" type="radio" id="artists" name="switch" value="artists" />
+          <input onClick={handleClick}  className="switch__radio" type="radio" id="artists" name="switch" value="artists" checked={!showSongs} />
           <label className="switch__label" htmlFor="artists"><div className="switch__label--text">Artists</div></label>
         </form>
         {showSongs ? <SongFilters

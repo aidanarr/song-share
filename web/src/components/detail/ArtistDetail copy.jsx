@@ -1,45 +1,33 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import fetchArtistId from "/src/services/fetchArtistId.js"
 import NotFound from "../common/NotFound.jsx"
 
-const ArtistDetail = ({ setLoader, user }) => {
+const ArtistDetail = () => {
 
   const [artist, setArtist] = useState({});
-
+  const [error, setError] = useState(false);
 
   //find artist id
   const {id} = useParams();
 
   useEffect(() => {
     try {
-      setLoader(true)
       fetchArtistId(id).then((data) => setArtist(data));
-      setTimeout(() => {
-        setLoader(false)
-      }, 500)
+      artist.name === "CastError" ? setError(true) : false;
     }catch (err){
       console.error(err)
     }
-  }, [])
-
-  const renderEditBtn = () => {
-    if (artist.user.username === user) {
-      return <Link to={`/artist/update/${id}`}>
-        <button>Edit artist</button>
-       </Link>
-    } else return false
-  }
+  }, [id])
 
   return (
     <div>
       {
-        artist.id ?
+        !error ?
           <article>
           <h2>{artist.name}</h2> 
           <p>{artist.bio}</p>
           <img src={artist.img} />
-          {renderEditBtn()}
         </article>
         : <NotFound />
       }

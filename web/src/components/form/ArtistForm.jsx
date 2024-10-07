@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import fetchAddArtist from "/src/services/fetchAddArtist.js"
 
 const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId }) => {
@@ -56,6 +57,7 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId }) => {
       </form>
       <button id="artist-btn" onClick={handleClick}>Add artist</button>
           <p>{message ? message : false}</p>
+          <Link to="/"><p>Back</p></Link>
     </div>
   )
 }

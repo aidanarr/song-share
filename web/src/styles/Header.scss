@@ -1,0 +1,56 @@
+.header{
+  
+    min-height: 15%;
+    padding: 20px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+  }
+ 
+  .profile-icon{
+   z-index: 3;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: blueviolet;
+    position: relative;
+  }
+
+  .profile-icon-logged {
+    z-index: 3;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: rgb(226, 43, 156);
+    position: relative;
+  }
+
+ .login-menu__box {
+    z-index: 2;
+    border: 1px solid black;
+    min-width: 80%;
+    position: absolute;
+    overflow: hidden;
+    background-color: aquamarine;
+    padding: 20px;
+    padding-top: 70px;
+    transform: translateY(-100%)
+ }
+ 
+  .slide-in {
+    animation: slide-in 0.5s forwards;
+  }
+ 
+  .slide-out {
+    animation: slide-out 0.5s forwards;
+  }
+ 
+  @keyframes slide-in {
+    0% {transform: translateY(-100%)}
+    100% {transform: translateY(0)}
+  }
+ 
+  @keyframes slide-out {
+    0% {transform: translateY(0)}
+    100% {transform: translateY(-100%)}
+  }
