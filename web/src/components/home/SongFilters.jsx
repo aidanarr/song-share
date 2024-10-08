@@ -1,6 +1,9 @@
 import "/src/styles/Filters.scss"
+import { useState } from "react";
 
 const SongFilters = ({ setValueTitle, setValueArtist, songGenres, setValueGenre }) => {
+
+  const [checked, setChecked] = useState(false);
 
    // avoid reload with enter
    const handleKeyDown = (ev) => {
@@ -22,26 +25,51 @@ const SongFilters = ({ setValueTitle, setValueArtist, songGenres, setValueGenre 
     } 
   }
 
+  const handleCheckbox = (ev) => {
+    setChecked(ev.target.checked)
+  }
+
   return (
-    <div>
+    <div className="filters-box">
       <div className="filters-text">
-      <p>Filters:</p>
-      <label htmlFor="filters-dropdown" className="filter-icon"></label>
+        <p>Filters</p>
+        <label htmlFor="filters-dropdown" className="filter-icon"><i className={`fa-solid fa-caret-down ${!checked ? "filter-arrow-up" : "filter-arrow-down"}`}></i></label>
       </div>
-      <input type="checkbox" id="filters-dropdown" className="filters-checkbox" />
+      <input
+        type="checkbox"
+        id="filters-dropdown"
+        className="filters-checkbox"
+        onChange={handleCheckbox}
+      />
       <form className="filters">
-        <label htmlFor="title">Title:</label>
-        <input onKeyDown={handleKeyDown} onChange={handleChange} id="title" type="text" />
-        <label htmlFor="artist">Artist:</label>
-        <input onKeyDown={handleKeyDown} onChange={handleChange} id="artist" type="text" />
-        <label htmlFor="genre">Genre:</label>
-        <select onChange={handleChange} name="genre" id="genre">
+        <label htmlFor="title">Title</label>
+        <input
+          className="input"
+          onKeyDown={handleKeyDown}
+          onChange={handleChange}
+          id="title"
+          type="text"
+        />
+        <label htmlFor="artist">Artist</label>
+        <input
+          className="input"
+          onKeyDown={handleKeyDown}
+          onChange={handleChange}
+          id="artist"
+          type="text"
+        />
+        <label htmlFor="genre">Genre</label>
+        <select className="input" onChange={handleChange} name="genre" id="genre">
           <option value="">all</option>
-          {songGenres.map((genre, i) => <option key={i} value={genre}>{genre}</option>)}
+          {songGenres.map((genre, i) => (
+            <option key={i} value={genre}>
+              {genre}
+            </option>
+          ))}
         </select>
       </form>
     </div>
-  )
+  );
 }
 
 export default SongFilters

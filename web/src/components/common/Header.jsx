@@ -1,4 +1,4 @@
-import "/src/styles/Header.scss"
+
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Login from "../common/Login.jsx"

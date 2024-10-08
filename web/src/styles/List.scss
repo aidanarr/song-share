@@ -1,5 +1,14 @@
 .list {
     display: flex;
+    min-width: 100%;
     flex-direction: column-reverse;
     gap: 10px;
+}
+
+.browse-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    order: 2;
+    padding-bottom: 10px;
 }

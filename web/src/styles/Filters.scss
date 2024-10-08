@@ -1,36 +1,64 @@
+@import "./_variables.scss";
+
+.filters-box{
+    width: 100%;
+    text-align: left;
+    order: 1;
+}
+
 .filters-text{
     display: flex;
     justify-content: left;
     align-items: center;
-    gap: 10px;
-    min-width: 200px;
+    gap: 2px;
 }
 
 .filters{
+    font: $main-font-smaller;
+    min-width: 100%;
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border: 2px solid black;
+    align-items: left;
+    gap: 5px;
     overflow: hidden;
     height: 0px;
     transition: all 1s;
+}
+
+.filter-icon{
+    display: flex;
+    width: 10px;
+    height: 10px;
+    align-items: center;
+    cursor: pointer;
+    color: $purple;
 }
 
 .filters-checkbox {
     display: none;
 
     &:checked + .filters {
-        display: flex;
-        height: 150px;
+        height: 180px;
+    }
+
+    &:checked + .filters-artist{
+        height: 70px;
     }
 
 }
 
-.filter-icon{
-    display: block;
-    width: 10px;
-    height: 10px;
-    background-color: plum;
-    cursor: pointer;
+.filter-arrow-up {
+    transform: rotate(270deg);
+    transition: all 0.5s ease;
 }
+
+.filter-arrow-down {
+    transition: all 0.5s ease;
+    transform: rotate(360deg);
+}
+
+
+
+
 

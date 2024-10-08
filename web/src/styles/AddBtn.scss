@@ -1,7 +1,26 @@
+@import "./variables";
+
+.add-btn{
+    position: relative;
+}
+
 .add {
-    border: 2px solid salmon;
+    width: 20px;
+    height: 20px;
+    background-color: $purple;
+    border-radius: 100%;
+    text-align: center;
+    color: white;
     &:hover{
         cursor: pointer;
-        background-color: rgb(255, 194, 188);
+        background-color: $light-purple;
     }
+}
+
+.login-reminder{
+    font: $main-font-smaller;
+    color: $magenta;
+    position: absolute;
+    min-width: 200px;
+    right: -250%;
 }

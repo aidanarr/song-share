@@ -40,7 +40,7 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={
-          <Main showSongs={showSongs} setShowSongs={setShowSongs} />
+          <Main isLogged={isLogged} showSongs={showSongs} setShowSongs={setShowSongs} />
           } />
           <Route path="/song/:id" element={
           <SongDetail token={token} user={user} setLoader={setLoader} />
@@ -63,6 +63,7 @@ function App() {
             <NotFound />
           } />
         </Routes>
+        <div className="purple-circle"></div>
       </div>
     </>
   )

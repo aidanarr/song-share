@@ -1,4 +1,4 @@
-
+import "/src/styles/Loader.scss"
 
 const Loader = () => {
   return (
