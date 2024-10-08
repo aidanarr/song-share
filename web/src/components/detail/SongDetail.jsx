@@ -65,9 +65,10 @@ export const SongDetail = ({ setLoader, user, token }) => {
           <p>{song.genre}</p>
           <img src={song.img} />
           <a href={song.url}>link</a>
-          <p>Added by: {song.user.username} </p>
+          <p>Added by: <Link to={"/user/" + song.user._id}> {song.user.username} </Link></p>
           {renderEditBtn()}
           {renderDeleteBtn()}
+          <p><Link to="/">Home</Link></p>
         </article> : <NotFound />
       }
     </div>
