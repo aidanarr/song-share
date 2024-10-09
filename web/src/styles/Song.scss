@@ -1,4 +1,45 @@
+@import "./variables";
+
+.card-container{
+    position: relative;
+}
+
 .song-card{
-    border: 2px solid blue;
-    padding: 10px;
+    max-width: 100%;
+    height: auto;
+    border: 2px solid $light-gray;
+    background-color: white;
+    box-shadow: 2px 2px 0px $light-gray;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+
+    &__text {
+        max-width: 200px;
+        word-wrap: break-word;
+
+        &--title {
+            font: $titles;
+        }
+
+        &--artist {
+            font-weight: 200;
+        }
+    }
+
+    &__img {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px $light-gray;
+    }
+}
+
+.url {
+    z-index: 4;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
 }

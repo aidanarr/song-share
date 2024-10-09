@@ -62,11 +62,13 @@ const List = ({ showSongs, valueTitle, valueArtist, setSongGenres, valueGenre, v
   return (
     <>
       <section>
-      <div className="browse-box">
+        <div className="browse-box">
           <p>Browse {showSongs ? "Songs" : "Artists"}</p>
           <AddBtn isLogged={isLogged} showSongs={showSongs} />
         </div>
-        {renderList()}
+        <div className="card-list">
+          {renderList()}
+        </div>
       </section>
     </>
   )

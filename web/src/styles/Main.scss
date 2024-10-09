@@ -8,8 +8,9 @@
    }
   
   .switch{
-    border: 2px solid $purple;
-    background-color: white;
+    border: 2px solid $light-gray;
+    background-color: $lighter-gray;
+    box-shadow: 2px 2px 0px $light-gray;
     padding: $button-padding;
     border-radius: $border-radius;
     display: flex;

@@ -1,9 +1,11 @@
 @import "./_variables.scss";
 
 .filters-box{
+    font: $main-font-smaller;
     width: 100%;
     text-align: left;
     order: 1;
+    font-weight: 450;
 }
 
 .filters-text{

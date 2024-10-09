@@ -38,30 +38,38 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
     setInputValue({...inputValue, [id]: value})
   }
 
+  const validateUrl = () => {
+    if (inputValue.url.includes("spotify") || inputValue.url.includes("youtube") || inputValue.url.includes("youtu.be")) {
+      return true
+    } else return false
+  }
+
   const handleClick = (ev) => {
     ev.preventDefault();
     setSongData({...songData, user: user});
-    fetchAddSong(songData, token).then((response) => {
-      if (response.success) {
-        setInputValue({
-          title: "",
-          artist: "",
-          artist2: "",
-          artist3: "",
-          artist4: "",
-          year: "",
-          album: "",
-          img: "",
-          genre: "",
-          url: ""
-        });
-        setModalId(ev.target.id)
-        setModal(true);
-        setNewSongId(response.song._id);
-      } else {
-        setMessage(response.message)
-      }
-    })
+    if (validateUrl()) {
+      fetchAddSong(songData, token).then((response) => {
+        if (response.success) {
+          setInputValue({
+            title: "",
+            artist: "",
+            artist2: "",
+            artist3: "",
+            artist4: "",
+            year: "",
+            album: "",
+            img: "",
+            genre: "",
+            url: ""
+          });
+          setModalId(ev.target.id)
+          setModal(true);
+          setNewSongId(response.song._id);
+        } else {
+          setMessage(response.message)
+        } 
+      })
+    } else console.log("url no válida")
   }
 
   return (
@@ -89,7 +97,7 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
           Picture:
           <input onChange={handleChange} type="text" name="img" id="img" value={inputValue.img} />
           Link:
-          <input onChange={handleChange} type="text" name="url" id="url" value={inputValue.url}/>
+          <input  onChange={handleChange} type="text" name="url" id="url" value={inputValue.url}/>
           <button id="song-btn" onClick={handleClick}>Add song</button>
           <p>{message ? message : false}</p>
           <Link to="/"><p>Back</p></Link>
