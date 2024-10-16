@@ -1,0 +1,54 @@
+@import "./variables";
+
+.userprofile-container {
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $padding-main;
+    padding-top: 40px;
+}
+
+.username{
+    font: $main-titles;
+}
+
+.user-songs{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__card {
+        border: 2px solid $light-gray;
+        background-color: white;
+        box-shadow: 2px 2px 0px $light-gray;
+        padding: 10px 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 3px;
+        word-wrap: break-word;
+
+        &--title{
+            max-width: 60%;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        &--details {
+            font-size: 14px;
+            font-weight: 500;
+            color: $purple;
+            border: 2px solid $light-purple;
+            padding: 5px;
+            border-radius: 10px;
+        }
+    }
+}

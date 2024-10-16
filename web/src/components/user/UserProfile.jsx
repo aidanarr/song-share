@@ -22,26 +22,25 @@ const UserProfile = ({setLoader}) => {
 
   const renderSongs = () => {
     return userData.my_songs.map((song, i) => {
-      return <div key={i}>
-        <h3>{song.title}</h3>
-        <img src={song.img} />
+      return <div className="user-songs__card" key={i}>
+        <h3 className="user-songs__card--title">{song.title}</h3>
         <Link to={"/song/" + song._id}>
-          <div>See details</div>
+          <div className="user-songs__card--details">See song</div>
         </Link>
       </div>
     })
   }
 
   return (
-    <div>
+    <div className="userprofile-container">
       {userData.username ? 
       <>
-      <h2>{userData.username}</h2>
+      <h2 className="username">{userData.username}</h2>
       <p>Songs added: {userData.my_songs.length}</p>
-      <section>
-        <div>
+      <section className="user-songs">
+        
           {renderSongs()}
-        </div>
+        
       </section>
       </> : false}
       
