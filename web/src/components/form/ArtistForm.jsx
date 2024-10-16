@@ -20,7 +20,6 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogg
     const value = ev.target.value;
     const id = ev.target.id;
     setArtistData({...artistData, [id]: value})
-    
   };
 
   const handleChange = (ev) => {
@@ -82,14 +81,17 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogg
             type="text"
             name="name"
             id="name"
+            maxLength="30"
             value={inputValue.name}
           />
           <label htmlFor="bio">Bio</label>
-          <input
+          <textarea
+            className="input-bio"
             onChange={handleChange}
             type="text"
             name="bio"
             id="bio"
+            maxLength="500"
             value={inputValue.bio}
           />
           <label htmlFor="img">Image*</label>
@@ -99,6 +101,8 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogg
             type="text"
             name="img"
             id="img"
+            maxLength="1000"
+            placeholder="Please provide an image url."
             value={inputValue.img}
           />
 

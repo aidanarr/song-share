@@ -7,6 +7,7 @@ const UpdateArtistForm = ({ user, token, setLoader }) => {
 
   const {id} = useParams();
 
+  const [missingFields, setMissingFields] = useState(false);
   const [artistData, setArtistData] = useState({});
   const [inputValue, setInputValue] = useState({
     name: "",
@@ -44,8 +45,24 @@ const UpdateArtistForm = ({ user, token, setLoader }) => {
     setInputValue({...inputValue, [id]: value})
   }
 
+  const validateRequired = () => {
+    if(inputValue.name && inputValue.img) {
+      setMissingFields(false)
+      return true
+    } else {
+      setMissingFields(true);
+      return false
+    }
+  }
+
   const handleClick = (ev) => {
     ev.preventDefault();
+    setMessage("");
+    
+    if(!validateRequired()){
+      return false
+    }
+
     try {
       fetchUpdateArtist(artistData, token, id).then((response) => {
         if (response.success) {
@@ -65,18 +82,58 @@ const UpdateArtistForm = ({ user, token, setLoader }) => {
   }
 
   return (
-    <div>
-      <form onInput={handleInput}>
-        Name:
-        <input onChange={handleChange} type="text" name="name" id="name" value={inputValue.name} />
-          Bio:
-          <input onChange={handleChange} type="text" name="bio" id="bio" value={inputValue.bio}/>
-          Picture:
-          <input onChange={handleChange} type="text" name="img" id="img" value={inputValue.img} />
-          <button id="artist-btn" onClick={handleClick}>Update artist</button>
-          <p>{message ? message : false}</p>
-          <Link to="/"><p>Back</p></Link>
-      </form>
+<div className="form-container">
+      <h2 className="form-title">Add new artist</h2>
+      <section className="form">
+        <form className="form__inputs" onInput={handleInput}>
+          <label htmlFor="name">Name*</label>
+          <p className={`required ${missingFields && !inputValue.name ? "" : "hidden"}`}>Required field.</p>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="name"
+            id="name"
+            maxLength="30"
+            value={inputValue.name}
+          />
+          <label htmlFor="bio">Bio</label>
+          <textarea
+            className="input-bio"
+            onChange={handleChange}
+            type="text"
+            name="bio"
+            id="bio"
+            maxLength="300"
+            value={inputValue.bio}
+          />
+          <label htmlFor="img">Image*</label>
+          <p className={`required ${missingFields && !inputValue.img ? "" : "hidden"}`}>Required field.</p>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="img"
+            id="img"
+            maxLength="1000"
+            value={inputValue.img}
+            placeholder="Please provide an image url."
+          />
+
+          <p className="error-msg">{message ? message : false}</p>
+          <div className="submit-btn">
+            <button
+              type="submit"
+              className="button"
+              id="artist-btn"
+              onClick={handleClick}
+            >
+              Update
+            </button>
+          </div>
+        </form>
+      </section>
+      <div className="back-link">
+        <Link to="/">Back</Link>
+      </div>
     </div>
   )
 }

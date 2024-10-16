@@ -199,8 +199,9 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
           type="text"
           name="img"
           id="img"
-          maxLength="1"
+          maxLength="1000"
           value={inputValue.img}
+          placeholder="Please provide an image url."
           required
         />
         <label htmlFor="url">Link*</label>
@@ -211,7 +212,7 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
           type="text"
           name="url"
           id="url"
-          maxLength="1"
+          maxLength="1000"
           placeholder="Provide a Spotify or Youtube url."
           value={inputValue.url}
         />
