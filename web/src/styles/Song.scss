@@ -17,15 +17,17 @@
     gap: 3px;
 
     &__text {
-        max-width: 200px;
+        max-width: 150px;
         word-wrap: break-word;
 
         &--title {
             font: $titles;
+            padding-bottom: 3px;
         }
 
         &--artist {
             font-weight: 200;
+            padding-bottom: 20px;
         }
     }
 
@@ -34,6 +36,8 @@
         height: 80px;
         border-radius: 10px;
         box-shadow: 2px 2px 2px $light-gray;
+        object-fit: cover;
+        object-position: top center;
     }
 }
 
@@ -41,5 +45,5 @@
     z-index: 4;
     position: absolute;
     bottom: 10px;
-    left: 20px;
+    left: 23px;
 }

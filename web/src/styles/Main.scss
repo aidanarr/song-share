@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 30px;
+    padding: $padding-main;
    }
   
   .switch{
@@ -25,6 +25,7 @@
         
       &:checked + .switch__label{
         color: $purple;
+        font-weight: 400;
         &::before{
           content: '';
           position: absolute;

@@ -25,10 +25,21 @@ export const SongDetail = ({ setLoader, user, token }) => {
 
   const artistNames = song.id ? song.artist.map((artist) => artist.name) : false;
 
+  const renderArtists = () => {
+    if (artistNames.length > 1) {
+      let artistList = "";
+      for (let i = 0; i < artistNames.length ; i++) {
+        artistList += artistNames[i] 
+        artistList += artistNames.length === i + 1 ? "" : ", ";
+      }
+      return artistList
+    } else return artistNames
+  }
+
   const renderEditBtn = () => {
     if (song.user.username === user) {
       return <Link to={`/song/update/${id}`}>
-        <button>Edit song</button>
+        <button className="song-detail__user--delete"><i className="fa-solid fa-pen-to-square"></i></button>
        </Link>
     } else return false
   };
@@ -48,31 +59,60 @@ export const SongDetail = ({ setLoader, user, token }) => {
 
   const renderDeleteBtn = () => {
     if (song.user.username === user) {
-      return <button onClick={handleDelete}>Delete song</button>
+      return <button className="song-detail__user--delete" onClick={handleDelete}><i className="fa-solid fa-trash-can"></i></button>
     } else return false
   };
 
+  const renderIcon = () => {
+    try {
+      if (song.url.includes("spotify")) {
+        return <i className="fa-brands fa-spotify"></i>
+      } else if (song.url.includes("youtu")) {
+        return <i className="fa-brands fa-youtube"></i>
+      } else return <i className="fa-solid fa-link"></i>
+    } catch (err) {
+      return false
+    }   
+  }
 
   return (
-    <div>
-      {
-        song.id ?
-        <article>
-        <h2>{song.title}</h2>
-        <p>{song.album}</p>
-        <p>{artistNames}</p>
-        <p>{song.year}</p>
-          <p>{song.genre}</p>
-          <img src={song.img} />
-          <a href={song.url}>link</a>
-          <p>Added by: <Link to={"/user/" + song.user._id}> {song.user.username} </Link></p>
-          {renderEditBtn()}
-          {renderDeleteBtn()}
-          <p><Link to="/">Home</Link></p>
-        </article> : <NotFound />
-      }
+    <div className="song-detail-container">
+      {song.id ? (
+        <article className="song-detail">
+          <i className="fa-solid fa-music song-detail__music"></i>
+          <h2 className="song-detail__title">{song.title}</h2>
+          <p className="song-detail__album">{song.album}</p>
+          <p className="song-detail__artist">by {renderArtists()}</p>
+          <img className="song-detail__img" src={song.img} />
+          {/* <p className="song-detail__year">{song.year ? "year" + song.year : ""}</p> */}
+          <div className="song-detail__details">
+            <div>
+              <p className="song-detail__details--year">year 2017</p>
+              <p className="song-detail__details--genre">genre: {song.genre}</p>
+            </div>
+            <a className="song-detail__details--url" href={song.url}>
+              {renderIcon()}
+            </a>
+          </div>
+          <div className="song-detail__user">
+            <p className="song-detail__user--username">
+              Added by
+              <Link to={"/user/" + song.user._id}> {song.user.username} </Link>
+            </p>
+            <div>
+              {renderEditBtn()}
+              {renderDeleteBtn()}
+            </div>
+          </div>
+        </article>
+      ) : (
+        <NotFound />
+      )}
+      <div className="back-link">
+        <Link to="/">Back</Link>
+      </div>
     </div>
-  )
+  );
 }
 
 export default SongDetail

@@ -1,4 +1,34 @@
-.artist-card{
-    border: 2px solid blue;
-    padding: 10px;
+@import "./variables";
+
+.card-text {
+    max-width: 150px;
 }
+
+.artist-card{
+    max-width: 100%;
+    height: auto;
+    border: 2px solid $light-gray;
+    background-color: white;
+    box-shadow: 2px 2px 0px $light-gray;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    word-wrap: break-word;
+
+    &__title {
+        font: $titles;
+        text-align: right;
+    }
+
+    &__img {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px $light-gray;
+        object-fit: cover;
+        object-position: top center;
+    }
+}
+

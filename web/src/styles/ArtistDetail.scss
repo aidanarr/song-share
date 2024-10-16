@@ -1,0 +1,136 @@
+@import "./variables";
+
+.artist-detail-container {
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $padding-main;
+    padding-top: 40px;
+}
+
+.artist-detail{
+    border: 2px solid $light-gray;
+    background-color: white;
+    box-shadow: 2px 2px 0px $light-gray;
+    padding: 20px;
+    padding-top: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+
+    &__music{
+        color: $purple;
+        font-size: 25px;
+        position: absolute;
+        right: 5px;
+        top: -10px;
+    }
+
+    &__title {
+        font: $main-titles;
+    }
+
+    &__album {
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    &__artist {
+        font: $main-font-smaller;
+    }
+
+    &__img {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px $light-gray;
+        object-fit: cover;
+        object-position: top center;
+    }
+
+    &__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 8px;
+        font-size: 20px;
+
+        &--year {
+            font: $main-font-smaller;
+            padding-bottom: 5px;
+        }
+        &--genre {
+            font: $main-font-smaller;
+        }
+    }
+
+    &__icons {
+        margin-top: 15px;
+        display: flex;
+        justify-content: right;
+        align-items: baseline;
+        padding: 0px 8px;
+
+        button {
+            background-color: transparent;
+            border: none;
+            color: $gray;
+            font-size: 18px;
+        }
+
+        &--delete{
+            padding-left: 10px;
+        }
+    }
+}
+
+.artist-songs{
+    width: 100%;
+    margin-top: 30px;
+    border: 2px solid $light-gray;
+    background-color: white;
+    box-shadow: 2px 2px 0px $light-gray;
+    padding: 20px;
+    padding-top: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+
+    &__title {
+        font: $titles;
+        padding-bottom: 15px;
+    }
+
+    &__list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+
+        li {
+            display: inline-block;
+            background-color: $lighter-gray;
+            padding: 3px 8px;
+            margin-bottom: 10px;
+            border-radius: $border-radius;
+        }
+    }
+}
+
+.back-link {
+    font-weight: 500;
+    padding: 15px;
+}
+
+

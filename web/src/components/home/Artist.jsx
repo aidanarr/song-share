@@ -1,15 +1,22 @@
 import "/src/styles/Artist.scss"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Artist = ({ artistData }) => {
+
+  const navigate = useNavigate();
+
+  const handleClickCard = () => {
+    navigate("/artist/" + artistData.id)
+  }
+
   return (
     <>
-      <Link to={`/artist/${artistData.id}`}>
-        <article className="artist-card">
-          <p>{artistData.name}</p>
-          <img src={artistData.img} />
+        <article onClick={handleClickCard} className="artist-card">
+          <img className="artist-card__img" src={artistData.img} />
+          <div className="card-text">
+          <p className="artist-card__title">{artistData.name}</p>
+          </div>
         </article>
-      </Link>
     </>
   )
 }

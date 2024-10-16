@@ -8,7 +8,8 @@ const fetchAllArtists = () => {
           return {
             id: artist._id,
             name: artist.name,
-            img: artist.img
+            img: artist.img,
+            bio: artist.bio
           }
         })
         return allSongs

@@ -27,7 +27,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
   const renderEditBtn = () => {
     if (artist.user.username === user) {
       return <Link to={`/artist/update/${id}`}>
-        <button>Edit artist</button>
+        <button className="song-detail__user--delete"><i className="fa-solid fa-pen-to-square"></i></button>
        </Link>
     } else return false
   }
@@ -47,25 +47,42 @@ const ArtistDetail = ({ setLoader, user, token }) => {
 
   const renderDeleteBtn = () => {
     if (artist.user.username === user) {
-      return <button onClick={handleDelete}>Delete artist</button>
+      return <button className="song-detail__user--delete" onClick={handleDelete}><i className="fa-solid fa-trash-can"></i></button>
     } else return false
   };
 
+  const renderSongs = () => {
+    const songs = artist.songs.map((song, i) => {
+      return <li key={i}><Link to={`/song/${song._id}`}>{song.title}</Link></li>
+    });
+
+    return songs
+  }
+
   return (
-    <div>
-      {
-        artist.id ?
-          <article>
-          <h2>{artist.name}</h2> 
+    <div className="artist-detail-container">
+      {artist.id ?
+      <>
+        <article className="artist-detail">
+          <h2 className="artist-detail__title">{artist.name}</h2>
+          <img className="artist-detail__img" src={artist.img} />
           <p>{artist.bio}</p>
-          <img src={artist.img} />
+          <div className="artist-detail__icons">
           {renderEditBtn()}
           {renderDeleteBtn()}
+          </div>
         </article>
-        : <NotFound />
+        <section className="artist-songs">
+          <i className="fa-solid fa-music artist-detail__music"></i>
+          <h3 className="artist-songs__title">Recommended songs</h3>
+          <ul className="artist-songs__list">{renderSongs()}</ul>
+        </section>
+      </>
+       : 
+        <NotFound />
       }
     </div>
-  )
+  );
 }
 
 export default ArtistDetail

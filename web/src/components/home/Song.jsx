@@ -9,6 +9,19 @@ const Song = ({ songData }) => {
     navigate("/song/" + songData.id)
   }
 
+  const artistNames = songData.id ? songData.artist.map((artist) => artist) : false;
+
+  const renderArtists = () => {
+    if (artistNames.length > 1) {
+      let artistList = "";
+      for (let i = 0; i < artistNames.length ; i++) {
+        artistList += artistNames[i] 
+        artistList += artistNames.length === i + 1 ? "" : ", ";
+      }
+      return artistList
+    } else return artistNames
+  }
+
   const renderIcon = () => {
     try {
       if (songData.url.includes("spotify")) {
@@ -27,7 +40,7 @@ const Song = ({ songData }) => {
         <article onClick={handleClickCard} className="song-card">
           <div className="song-card__text">
             <p className="song-card__text--title">{songData.title}</p>
-            <p className="song-card__text--artist">{songData.artist}</p> 
+            <p className="song-card__text--artist">{renderArtists()}</p> 
           </div>          
           <img className="song-card__img" src={songData.img} />          
         </article>
