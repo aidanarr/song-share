@@ -52,7 +52,7 @@ function App() {
             <SongForm isLogged={isLogged} setModalId={setModalId} setNewSongId={setNewSongId} setModal={setModal} user={user} token={token} />
           } />
           <Route path="/artist/add" element={
-            <ArtistForm setModalId={setModalId} setNewArtistId={setNewArtistId} setModal={setModal} user={user} token={token}/>
+            <ArtistForm isLogged={isLogged} setModalId={setModalId} setNewArtistId={setNewArtistId} setModal={setModal} user={user} token={token}/>
           } />
           <Route path="/user/:id" element={<UserProfile setLoader={setLoader} />} />
           <Route path="/song/update/:id" element={<UpdateSongForm setLoader={setLoader}

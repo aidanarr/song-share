@@ -37,15 +37,6 @@
         font: $main-titles;
     }
 
-    &__album {
-        font-style: italic;
-        font-size: 18px;
-    }
-
-    &__artist {
-        font: $main-font-smaller;
-    }
-
     &__img {
         margin-top: 15px;
         margin-bottom: 15px;
@@ -55,23 +46,6 @@
         box-shadow: 2px 2px 2px $light-gray;
         object-fit: cover;
         object-position: top center;
-    }
-
-    &__details {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 5px;
-        padding: 5px 8px;
-        font-size: 20px;
-
-        &--year {
-            font: $main-font-smaller;
-            padding-bottom: 5px;
-        }
-        &--genre {
-            font: $main-font-smaller;
-        }
     }
 
     &__icons {
@@ -131,6 +105,7 @@
 .back-link {
     font-weight: 500;
     padding: 15px;
+    color: $purple;
 }
 
 

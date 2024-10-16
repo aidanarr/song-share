@@ -13,6 +13,18 @@
     justify-content: left;
     align-items: center;
     gap: 2px;
+
+    span {
+        font-size: 14px;
+        font-weight: 400;
+        color: $gray;
+    }
+
+    &__dropdown {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
 }
 
 .filters{

@@ -81,6 +81,9 @@ const ArtistDetail = ({ setLoader, user, token }) => {
        : 
         <NotFound />
       }
+      <div className="back-link">
+        <Link to="/">Back</Link>
+      </div>
     </div>
   );
 }

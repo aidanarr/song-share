@@ -1,0 +1,94 @@
+@import "./_variables.scss";
+
+.form-container {
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $padding-main;
+    padding-top: 30px;
+}
+
+.form-title {
+    font: $main-titles;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.form {
+    min-width: 100%;
+    border: 2px solid $light-gray;
+    background-color: white;
+    box-shadow: 2px 2px 0px $light-gray;
+    padding: 30px 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+
+
+    &__inputs {
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &__extra-artists{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &__url-text {
+        font-size: 14px;
+        color: $gray;
+    }
+}
+
+.back-link {
+    font-weight: 500;
+    padding: 15px;
+    color: $purple;
+}
+
+input {
+    border-radius: 5px;
+    min-width: 100%;
+    padding: 5px;
+    border: none;
+    background-color: $lighter-gray;
+    border: 1px solid $light-gray;
+}
+
+.submit-btn{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+        font-size: 14px;
+    }
+}
+
+.error-msg {
+    color: $magenta;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.required {
+    color: $magenta;
+    font-size: 14px;
+}

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import fetchAddArtist from "/src/services/fetchAddArtist.js"
 
-const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId }) => {
+const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogged }) => {
   const [artistData, setArtistData] = useState({});
   const [inputValue, setInputValue] = useState({
     name: "",
@@ -10,6 +10,11 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId }) => {
     img: ""
   })
   const [message, setMessage] = useState("");
+  const [missingFields, setMissingFields] = useState(false);
+
+  useEffect(() => {
+    setMessage("");
+  }, [isLogged])
 
   const handleInput = (ev) => {
     const value = ev.target.value;
@@ -24,11 +29,31 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId }) => {
     setInputValue({...inputValue, [id]: value})
   }
 
-  const handleClick = (ev) => {
+  const validateRequired = () => {
+    if(inputValue.name && inputValue.img) {
+      setMissingFields(false)
+      return true
+    } else {
+      setMissingFields(true);
+      return false
+    }
+  }
+
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     const id = ev.target.id;
     setMessage("");
     setArtistData({...artistData, user: user});
+
+    if (!isLogged) {
+      setMessage("You must login first.")
+      return false
+    }
+
+    if(!validateRequired()){
+      return false
+    }
+
     fetchAddArtist(artistData, token).then((response) => {
       if (response.success) {
         setInputValue({
@@ -46,20 +71,55 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId }) => {
   }
 
   return (
-    <div>
-      <form onInput={handleInput}>
-        Name:
-        <input onChange={handleChange} type="text" name="name" id="name" value={inputValue.name} />
-        Bio:
-        <input onChange={handleChange} type="text" name="bio" id="bio" value={inputValue.bio} />
-        Img:
-        <input onChange={handleChange} type="text" name="img" id="img" value={inputValue.img} />
-      </form>
-      <button id="artist-btn" onClick={handleClick}>Add artist</button>
-          <p>{message ? message : false}</p>
-          <Link to="/"><p>Back</p></Link>
+    <div className="form-container">
+      <h2 className="form-title">Add new artist</h2>
+      <section className="form">
+        <form className="form__inputs" onInput={handleInput}>
+          <label htmlFor="name">Name*</label>
+          <p className={`required ${missingFields && !inputValue.name ? "" : "hidden"}`}>Required field.</p>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="name"
+            id="name"
+            value={inputValue.name}
+          />
+          <label htmlFor="bio">Bio</label>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="bio"
+            id="bio"
+            value={inputValue.bio}
+          />
+          <label htmlFor="img">Image*</label>
+          <p className={`required ${missingFields && !inputValue.img ? "" : "hidden"}`}>Required field.</p>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="img"
+            id="img"
+            value={inputValue.img}
+          />
+
+          <p className="error-msg">{message ? message : false}</p>
+          <div className="submit-btn">
+            <button
+              type="submit"
+              className="button"
+              id="song-btn"
+              onClick={handleSubmit}
+            >
+              Add artist
+            </button>
+          </div>
+        </form>
+      </section>
+      <div className="back-link">
+        <Link to="/">Back</Link>
+      </div>
     </div>
-  )
+  );
 }
 
 export default ArtistForm

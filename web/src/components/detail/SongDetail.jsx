@@ -84,7 +84,6 @@ export const SongDetail = ({ setLoader, user, token }) => {
           <p className="song-detail__album">{song.album}</p>
           <p className="song-detail__artist">by {renderArtists()}</p>
           <img className="song-detail__img" src={song.img} />
-          {/* <p className="song-detail__year">{song.year ? "year" + song.year : ""}</p> */}
           <div className="song-detail__details">
             <div>
               <p className="song-detail__details--year">year 2017</p>
