@@ -13,6 +13,7 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogg
   const [missingFields, setMissingFields] = useState(false);
 
   useEffect(() => {
+    setArtistData({...artistData, user: user})
     setMessage("");
   }, [isLogged])
 
@@ -42,7 +43,7 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogg
     ev.preventDefault();
     const id = ev.target.id;
     setMessage("");
-    setArtistData({...artistData, user: user});
+    // setArtistData({...artistData, user: user});
 
     if (!isLogged) {
       setMessage("You must login first.")
@@ -111,7 +112,7 @@ const ArtistForm = ({ user, token, setModal, setModalId,  setNewArtistId, isLogg
             <button
               type="submit"
               className="button"
-              id="song-btn"
+              id="artist-btn"
               onClick={handleSubmit}
             >
               Add artist

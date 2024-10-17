@@ -34,7 +34,7 @@ function App() {
   return (
     <>
       <div className="page">
-        {modal ? <Modal setModal={setModal} setShowSongs={setShowSongs} modalId={modalId} newSongId={newSongId} newArtistId={newArtistId} /> : false}
+        {modal ? <Modal setModal={setModal} modal={modal} setShowSongs={setShowSongs} modalId={modalId} newSongId={newSongId} newArtistId={newArtistId} /> : false}
         {loader ? <Loader /> : false}
         <Header isLogged={isLogged} setIsLogged={setIsLogged} setToken={setToken} setUser={setUser} setLoader={setLoader} />
         <Sidebar />

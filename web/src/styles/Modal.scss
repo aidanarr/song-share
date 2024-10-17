@@ -1,4 +1,7 @@
+@import "./_variables.scss";
+
 .modal {
+    z-index: 20;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +12,7 @@
 }
 
 .modal-bg{
-    z-index: 4;
+    z-index: 24;
     background-color: white;
     opacity: 50%;
     width: 100%;
@@ -21,8 +24,34 @@
 }
 
 .modal-window {
-    z-index: 5;
+    z-index: 25;
     width: 80%;
+    height: 20%;
     padding: 20px;
-    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    border: 2px solid $mid-purple;
+    background-color: $light-purple;
+    box-shadow: 2px 2px 0px $mid-purple;
+    border-radius: 10px;
+    
+    button {
+        max-height: 50%;
+        min-width: 40%;
+        padding: 5px;
+        background-color: $purple;
+    }
+}
+
+.popup-aninmation {
+    animation: popup 0.5s;
+}
+
+@keyframes popup {
+    0% {transform: translateY(0px)}
+    60% {transform: translateY(-30px)}
+    80% {transform: translateY(10px)}
+    100% {transform: translateY(0px)}
 }
