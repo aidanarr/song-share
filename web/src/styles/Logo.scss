@@ -1,0 +1,20 @@
+@import "./variables";
+
+.logo{
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+
+    &__song {
+        font-size: 18px;
+    }
+
+    &__music {
+        color: $purple;
+        position: absolute;
+        top: 8px;
+        right: -7px;
+        font-size: 18px;
+    }
+}

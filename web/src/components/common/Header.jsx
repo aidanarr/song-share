@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Login from "../common/Login.jsx"
+import Logo from "../common/Logo.jsx"
 
 const Header = ({ setToken, setLoader, setUser, setIsLogged, isLogged }) => {
   const [slideIn, setSlideIn] = useState(false);
@@ -49,7 +50,7 @@ const Header = ({ setToken, setLoader, setUser, setIsLogged, isLogged }) => {
         </div>
       </div>
       <header className="header">
-        <p>Song Share</p>
+        <Logo />
         {renderIcon()}
       </header>
     </>

@@ -43,7 +43,9 @@ const UserProfile = ({setLoader}) => {
         
       </section>
       </> : false}
-      
+      <div className="back-link">
+        <Link to="/">Back</Link>
+      </div>
     </div>
   )
 }
