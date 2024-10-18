@@ -19,7 +19,10 @@ const fetchAllSongs = () => {
         return responseData.error
       }
     }   
-     ).catch(err => {console.error('Request failed', err)
+     ).catch((err) => {
+      console.error('Request failed', err)
+      const data = "error";
+      return data;
   })
 };
 

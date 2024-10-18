@@ -10,14 +10,13 @@ const List = ({ showSongs, valueTitle, valueArtist, setSongGenres, valueGenre, v
 
   const [allSongs, setAllSongs] = useState([]);
   const [allArtists, setAllArtists] = useState([]);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchAllSongs().then((data) => {
-        if (data !== "error") {
-          setAllSongs(data)
-        } else setError(true)
-      })
+    try {
+      fetchAllSongs().then((data) => setAllSongs(data))      
+    } catch (err){
+      console.error(err)
+    }
   }, [])
 
   useEffect(() => {
@@ -32,11 +31,11 @@ const List = ({ showSongs, valueTitle, valueArtist, setSongGenres, valueGenre, v
   }, [allSongs])
   
   useEffect(() => {
-    fetchAllArtists().then((data) => {
-      if (data !== "error") {
-        setAllArtists(data)
-      } else setError(true)
-    })
+    try {
+      fetchAllArtists().then((data) => setAllArtists(data))
+    } catch (err){
+      console.error(err)
+    }
   }, [])
   
   //filters for songs
@@ -57,10 +56,6 @@ const List = ({ showSongs, valueTitle, valueArtist, setSongGenres, valueGenre, v
     }
   }
 
-  const renderEmptyList = () => {
-    return <p className="card-list__empty">Oops, this looks too empty.</p>
-  }
-
   return (
     <>
       <section>
@@ -69,7 +64,7 @@ const List = ({ showSongs, valueTitle, valueArtist, setSongGenres, valueGenre, v
           <AddBtn isLogged={isLogged} showSongs={showSongs} />
         </div>
         <div className="card-list">
-          {error ? renderEmptyList() : renderList()}
+          {renderList()}
         </div>
       </section>
     </>

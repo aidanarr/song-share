@@ -2,15 +2,22 @@ import "/src/styles/Main.scss"
 import SongFilters from "../home/SongFilters.jsx"
 import ArtistFilters from "../home/ArtistFilters.jsx"
 import List from "../home/List.jsx"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Main = ({showSongs, setShowSongs, isLogged}) => {
+const Main = ({showSongs, setShowSongs, isLogged, setLoader}) => {
 
   const [valueTitle, setValueTitle] = useState("");
   const [valueArtist, setValueArtist] = useState("");
   const [songGenres, setSongGenres] = useState([]);
   const [valueGenre, setValueGenre] = useState("");
   const [valueName, setValueName] = useState("")
+
+  useEffect(() => {
+    setLoader(true)
+    setTimeout(() => {
+      setLoader(false)
+    }, 500)
+  }, [])
 
   function handleClick(ev){
     const value = ev.target.value;

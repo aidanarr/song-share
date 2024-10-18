@@ -40,7 +40,7 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={
-          <Main isLogged={isLogged} showSongs={showSongs} setShowSongs={setShowSongs} />
+          <Main setLoader={setLoader} isLogged={isLogged} showSongs={showSongs} setShowSongs={setShowSongs} />
           } />
           <Route path="/song/:id" element={
           <SongDetail token={token} user={user} setLoader={setLoader} />
