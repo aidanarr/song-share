@@ -1,10 +1,10 @@
 .loader-page {
-    z-index: 4;
+    z-index: 30;
     background-color: white;
     opacity: 50%;
     width: 100%;
-    height: 100%;
-    position: absolute;
+    height: 100vh;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,7 +14,7 @@
     
      width: 60px;
      aspect-ratio: 2;
-     --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+     --_g: no-repeat radial-gradient(circle closest-side,#7E4191 90%,#0000);
      background: 
        var(--_g) 0%   50%,
        var(--_g) 50%  50%,

@@ -1,12 +1,18 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import fetchSongId from "/src/services/fetchSongId.js"
 import fetchDeleteSong from "/src/services/fetchDeleteSong.js"
 import NotFound from "../common/NotFound.jsx"
+import ModalDelete from "../common/ModalDelete.jsx"
 
-export const SongDetail = ({ setLoader, user, token }) => {
+
+export const SongDetail = ({ setLoader, user, token
+ }) => {
 
   const [song, setSong] = useState({});
+  const [modalDelete, setModalDelete] = useState(false)
+
+  const navigate = useNavigate()
 
   //find song id
   const {id} = useParams();
@@ -44,12 +50,17 @@ export const SongDetail = ({ setLoader, user, token }) => {
     } else return false
   };
 
-  const handleDelete = (ev) => {
-    ev.preventDefault()
+  const handleDelete = () => {
     try {
       fetchDeleteSong(user, id, token).then((response) => {
         if (response.success) {
-          console.log(response)
+          setLoader(true)
+          setTimeout(() => {
+            setModalDelete(false)
+            navigate("/")
+            setLoader(false)
+          }, 1000)
+
         } else console.log("couldn't delete")
       })
     }catch (err) {
@@ -57,9 +68,14 @@ export const SongDetail = ({ setLoader, user, token }) => {
     }
   };
 
+  const handleModalDelete = (ev) => {
+    ev.preventDefault()
+    setModalDelete(true)
+  }
+
   const renderDeleteBtn = () => {
     if (song.user.username === user) {
-      return <button className="song-detail__user--delete" onClick={handleDelete}><i className="fa-solid fa-trash-can"></i></button>
+      return <button className="song-detail__user--delete" onClick={handleModalDelete}><i className="fa-solid fa-trash-can"></i></button>
     } else return false
   };
 
@@ -76,6 +92,8 @@ export const SongDetail = ({ setLoader, user, token }) => {
   }
 
   return (
+    <>
+    {modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="song" modalDelete={modalDelete} deleteSong={handleDelete} /> : false}
     <div className="song-detail-container">
       {song.id ? (
         <article className="song-detail">
@@ -111,6 +129,7 @@ export const SongDetail = ({ setLoader, user, token }) => {
         <Link to="/">Back</Link>
       </div>
     </div>
+    </>
   );
 }
 

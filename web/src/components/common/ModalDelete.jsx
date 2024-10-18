@@ -1,48 +1,30 @@
 import "/src/styles/Modal.scss"
-import { useNavigate } from "react-router-dom"
 
-export const Modal = ({newSongId, newArtistId, modalId, setShowSongs, setModal, modal}) => {
 
-  const navigate = useNavigate();
+export const ModalDelete = ({ modalId, deleteSong, deleteArtist, modalDelete, setModalDelete }) => {
 
-  const handleClickNew = (ev) => {
-    ev.preventDefault();
-    setModal(false);
-    if (modalId === "song-btn") {
-      navigate("/song/" + newSongId)
-    } else if (modalId === "artist-btn") {
-      navigate("/artist/" + newArtistId)
-    }
+  const handleYesBtn = (ev) => {
+    ev.preventDefault()
+    if (modalId === "song") {
+      deleteSong()
+    } else if (modalId === "artist") {
+      deleteArtist()
+    } else return false
+    
   }
 
-  const handleClickAdd = (ev) => {
-    ev.preventDefault();
-    setModal(false);
-    if (modalId === "song.btn") {
-      navigate("/song/add")
-    } else if (modalId === "artist-btn") {
-      navigate("/artist/add")
-    }
+  const handleNoBtn = (ev) => {
+    ev.preventDefault()
+    setModalDelete(false)
   }
-
-  const handleClickBrowse = (ev) => {
-    ev.preventDefault();
-    setModal(false);
-    if (modalId === "song-btn") {
-      setShowSongs(true);
-      navigate("/")
-    } else if (modalId === "artist-btn") {
-      setShowSongs(false);
-      navigate("/")
-    }
-  }
+  
 
   return (
-    <div className="modal">
-      <div className={`modal-window ${modal ? "popup-aninmation" : ""}`}>
-        <button className="button" onClick={handleClickNew}>See new {modalId === "song-btn" ? "song" : "artist"}</button>
-        <button className="button" onClick={handleClickAdd}>Add new {modalId === "song-btn" ? "song" : "artist"}</button>
-        <button className="button" onClick={handleClickBrowse}>Browse {modalId === "song-btn" ? "songs" : "artists"}</button>
+    <div className="modal modal-delete">
+      <div className={`modal-window ${modalDelete ? "popup-aninmation" : ""}`}>
+        <p>Are you sure you want to delete this {modalId === "song" ? "song" : "artist"}?</p>
+        <button onClick={handleYesBtn} className="button">Yes</button>
+        <button onClick={handleNoBtn} className="button">No, wait!</button>
       </div>
     <div className="modal-bg">
     </div>
@@ -50,4 +32,4 @@ export const Modal = ({newSongId, newArtistId, modalId, setShowSongs, setModal, 
   )
 }
 
-export default Modal
+export default ModalDelete

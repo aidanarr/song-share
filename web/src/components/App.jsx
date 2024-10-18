@@ -1,7 +1,7 @@
 import "../styles/App.scss"
 
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 //components
 import Header from "./common/Header.jsx";

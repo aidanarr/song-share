@@ -1,13 +1,16 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import fetchArtistId from "/src/services/fetchArtistId.js"
 import fetchDeleteArtist from "/src/services/fetchDeleteArtist.js"
 import NotFound from "../common/NotFound.jsx"
+import ModalDelete from "../common/ModalDelete.jsx"
 
 const ArtistDetail = ({ setLoader, user, token }) => {
 
   const [artist, setArtist] = useState({});
+  const [modalDelete, setModalDelete] = useState(false)
 
+  const navigate = useNavigate()
 
   //find artist id
   const {id} = useParams();
@@ -32,12 +35,16 @@ const ArtistDetail = ({ setLoader, user, token }) => {
     } else return false
   }
 
-  const handleDelete = (ev) => {
-    ev.preventDefault()
+  const handleDelete = () => {
     try {
       fetchDeleteArtist(user, id, token).then((response) => {
         if (response.success) {
-          console.log(response)
+          setLoader(true)
+          setTimeout(() => {
+            setModalDelete(false)
+            navigate("/")
+            setLoader(false)
+          }, 1000)
         } else console.log("couldn't delete")
       })
     }catch (err) {
@@ -45,9 +52,14 @@ const ArtistDetail = ({ setLoader, user, token }) => {
     }
   };
 
+  const handleModalDelete = (ev) => {
+    ev.preventDefault()
+    setModalDelete(true)
+  }
+
   const renderDeleteBtn = () => {
     if (artist.user.username === user) {
-      return <button className="song-detail__user--delete" onClick={handleDelete}><i className="fa-solid fa-trash-can"></i></button>
+      return <button className="song-detail__user--delete" onClick={handleModalDelete}><i className="fa-solid fa-trash-can"></i></button>
     } else return false
   };
 
@@ -60,6 +72,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
   }
 
   return (
+    <>{modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="artist" modalDelete={modalDelete} deleteArtist={handleDelete} /> : false}
     <div className="artist-detail-container">
       {artist.id ?
       <>
@@ -85,6 +98,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
         <Link to="/">Back</Link>
       </div>
     </div>
+    </>
   );
 }
 

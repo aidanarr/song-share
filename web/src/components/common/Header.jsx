@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Login from "../common/Login.jsx"
 import Logo from "../common/Logo.jsx"
+import noLoggedImg from "../../images/no-logged.png"
+import loggedImg from "../../images/logged.png"
 
 const Header = ({ setToken, setLoader, setUser, setIsLogged, isLogged }) => {
   const [slideIn, setSlideIn] = useState(false);
@@ -37,8 +39,11 @@ const Header = ({ setToken, setLoader, setUser, setIsLogged, isLogged }) => {
 
   function renderIcon() {
     if (isLogged) {
-      return <div className="profile-icon-logged" onClick={handleClickProfile}></div>
+      return <div className="profile-icon-logged" onClick={handleClickProfile}>
+        <img className="profile-icon" src={loggedImg} />
+      </div>
     } else return <div className="profile-icon" onClick={handleClick}>
+      <img className="profile-icon" src={noLoggedImg} />
         </div>
   }
 

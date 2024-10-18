@@ -12,8 +12,13 @@
     width: 30px;
     height: 30px;
     border-radius: 100%;
-    background-color: blue;
     position: relative;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+    }
   }
 
   .profile-icon-logged {
@@ -21,8 +26,12 @@
     width: 30px;
     height: 30px;
     border-radius: 100%;
-    background-color: rgb(226, 43, 156);
     position: relative;
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+    }
   }
 
  .login-menu__box {
