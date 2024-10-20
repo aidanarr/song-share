@@ -12,6 +12,7 @@ const Artist = ({ artistData }) => {
   return (
     <>
         <article onClick={handleClickCard} className="artist-card">
+          <i className="fa-solid fa-music artist-card__music"></i>
           <img className="artist-card__img" src={artistData.img} />
           <div className="card-text">
           <p className="artist-card__title">{artistData.name}</p>

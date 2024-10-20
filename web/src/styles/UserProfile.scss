@@ -24,6 +24,10 @@
     flex-direction: column;
     gap: 10px;
 
+    @media (width > 1024px) {
+        width: 80%;
+    }
+
     &__card {
         border: 2px solid $light-gray;
         background-color: white;

@@ -2,6 +2,7 @@
 
 .card-container{
     position: relative;
+    
 }
 
 .song-card{
@@ -15,6 +16,32 @@
     display: flex;
     justify-content: space-between;
     gap: 3px;
+
+    &__music {
+        display: none;
+        @media (width > 1024px) {
+            display: inline-block;
+            position: absolute;
+            right: 10px;
+            top: -5px;
+            color: $purple;
+        }
+    }
+
+    @media (width > 1024px) {
+        padding: 30px;
+        width: 300px;
+        height: 150px;
+
+        &:hover {
+            cursor: pointer;
+            .song-card__music {
+                animation: bounce 0.5s forwards;
+            }
+        }
+    }
+    
+    
 
     &__text {
         max-width: 150px;
@@ -46,4 +73,8 @@
     position: absolute;
     bottom: 10px;
     left: 23px;
+
+    &:hover {
+        color: $light-purple;
+    }
 }

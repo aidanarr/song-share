@@ -23,10 +23,15 @@
 @import "./button.scss";
 @import "./UserProfile.scss";
 @import "./Logo.scss";
+@import "./Sidebar.scss";
 
 :root {
   font: $main-font;
   
+}
+
+body {
+  overflow-x: hidden;
 }
 
  a {
@@ -42,6 +47,7 @@
  input {
   font: $main-font;
   font-size: 14px;
+  
  }
 
  .page{
@@ -49,6 +55,15 @@
    min-height: 100vh;
    position: relative;
    background-color: white;
+
+   &__main {
+    @media (width > 1024px) {
+      display: grid;
+      grid-template-columns: 30vw 70vw;
+      grid-template-rows: 20vh 1fr;
+    }
+      
+   }
  }
 
  .purple-circle {

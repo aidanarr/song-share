@@ -2,6 +2,12 @@
 
 .add-btn{
     position: relative;
+
+    @media (width > 1024px) {
+        margin-right: 120px;
+        position: absolute;
+        left: 120px;
+    }
 }
 
 .add {
@@ -23,4 +29,9 @@
     position: absolute;
     min-width: 200px;
     right: -250%;
+
+    @media (width > 1024px){
+        top: 30px;
+        right: -60px;
+    }
 }

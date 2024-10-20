@@ -75,7 +75,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
     <>{modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="artist" modalDelete={modalDelete} deleteArtist={handleDelete} /> : false}
     <div className="artist-detail-container">
       {artist.id ?
-      <>
+      <div className="artist-detail-container__cards">
         <article className="artist-detail">
           <h2 className="artist-detail__title">{artist.name}</h2>
           <img className="artist-detail__img" src={artist.img} />
@@ -90,7 +90,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
           <h3 className="artist-songs__title">Recommended songs</h3>
           <ul className="artist-songs__list">{renderSongs()}</ul>
         </section>
-      </>
+      </div>
        : 
         <NotFound />
       }
@@ -98,6 +98,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
         <Link to="/">Back</Link>
       </div>
     </div>
+      
     </>
   );
 }

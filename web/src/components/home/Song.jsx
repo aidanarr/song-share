@@ -38,6 +38,7 @@ const Song = ({ songData }) => {
     <div className="card-container">
         <a className="url" id="song-url" href={songData.url} target="_blank">{renderIcon()}</a>
         <article onClick={handleClickCard} className="song-card">
+        <i className="fa-solid fa-music song-card__music"></i>
           <div className="song-card__text">
             <p className="song-card__text--title">{songData.title}</p>
             <p className="song-card__text--artist">{renderArtists()}</p> 

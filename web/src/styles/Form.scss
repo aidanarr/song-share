@@ -11,6 +11,12 @@
     align-items: center;
     padding: $padding-main;
     padding-top: 30px;
+    @media (width > 1024px) {
+        justify-self: flex-start;
+        align-items: flex-start;
+        padding-top: 10px;
+        padding-left: 100px;
+    }
 }
 
 .form-title {
@@ -33,6 +39,10 @@
     align-items: center;
     gap: 30px;
     position: relative;
+
+    @media (width > 1024px) {
+        min-width: 70%;
+    }
 
 
     &__inputs {

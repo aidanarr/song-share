@@ -32,8 +32,8 @@ const SongFilters = ({ setValueTitle, setValueArtist, songGenres, setValueGenre 
   return (
     <div className="filters-box">
       <div className="filters-text">
-        <p>Filters</p>
-        <label htmlFor="filters-dropdown" className="filter-icon"><i className={`fa-solid fa-caret-down ${!checked ? "filter-arrow-up" : "filter-arrow-down"}`}></i></label>
+        
+        <label htmlFor="filters-dropdown" className="filter-icon"><p>Filters</p><i className={`fa-solid fa-caret-down ${!checked ? "filter-arrow-up" : "filter-arrow-down"}`}></i></label>
       </div>
       <input
         type="checkbox"

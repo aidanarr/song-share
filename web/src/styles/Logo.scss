@@ -5,6 +5,7 @@
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
     font-size: 20px;
+    max-width: 60px;
 
     &__song {
         font-size: 18px;
@@ -17,5 +18,8 @@
         top: 8px;
         right: -7px;
         font-size: 18px;
+        @media (width > 1024px) {
+            color: white;
+        }
     }
 }

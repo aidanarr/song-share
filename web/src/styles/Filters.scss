@@ -6,6 +6,10 @@
     text-align: left;
     order: 1;
     font-weight: 450;
+
+    @media (width > 1024px) {
+        width: 60%;  
+    }
 }
 
 .filters-text{
@@ -13,6 +17,7 @@
     justify-content: left;
     align-items: center;
     gap: 2px;
+    
 
     span {
         font-size: 14px;
@@ -38,6 +43,8 @@
     overflow: hidden;
     height: 0px;
     transition: all 1s;
+
+    
 }
 
 .filter-icon{
@@ -47,6 +54,11 @@
     align-items: center;
     cursor: pointer;
     color: $purple;
+    gap: 4px;
+
+    p {
+        color: black;
+    }
 }
 
 .filters-checkbox {

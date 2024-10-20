@@ -2,7 +2,7 @@ import { useState } from "react"
 import fetchLogin from "/src/services/fetchLogin.js"
 import fetchSignup from "/src/services/fetchSignup.js"
 
-const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
+const LoginDesktop = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
 
   const [userData, setUserData] = useState({
     user: "",
@@ -54,9 +54,8 @@ const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
     }
   }
 
-  return ( 
-    <>  
-      <div>
+  return (    
+      <>
         <form>
           <label htmlFor="user">Username</label>
           <input onChange={handleInput} id="user" name="user" type="text" value={userData.user} />
@@ -68,9 +67,8 @@ const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
           </div>
         </form>
         <p className="error-msg">{errorMsg ? errorMsg : false}</p>
-      </div>
-      </> 
+      </>
   );
 }
 
-export default Login
+export default LoginDesktop

@@ -4,9 +4,11 @@
     display: flex;
     min-width: 100%;
     flex-direction: column-reverse;
+    
 }
 
 .browse-box{
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -22,5 +24,12 @@
     &__empty {
         padding-top: 20px;
         font: $main-font-smaller;
+    }
+
+    @media (width > 1024px) {
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        justify-content: left;
+        padding-top: 30px;
     }
 }

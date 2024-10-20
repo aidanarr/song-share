@@ -5,6 +5,12 @@
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
+
+    @media (width > 1024px){
+      justify-content: right;
+      padding-right: 23%;
+      padding-top: 50px;
+    }
   }
  
   .profile-icon{
@@ -14,12 +20,31 @@
     border-radius: 100%;
     position: relative;
 
+    @media (width > 1024px){
+      display: none;
+    }
+
     img {
       width: 30px;
       height: 30px;
       border-radius: 100%;
     }
   }
+
+  .profile-icon-desktop{
+    z-index: 14;
+     width: 40px;
+     height: 40px;
+     border-radius: 100%;
+     position: relative;
+     cursor: pointer;
+ 
+     img {
+       width: 40px;
+       height: 40px;
+       border-radius: 100%;
+     }
+   }
 
   .profile-icon-logged {
     z-index: 14;
@@ -27,6 +52,7 @@
     height: 30px;
     border-radius: 100%;
     position: relative;
+    cursor: pointer;
     img {
       width: 30px;
       height: 30px;
@@ -34,9 +60,24 @@
     }
   }
 
+  .profile-icon-logged-desktop {
+    z-index: 14;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    position: relative;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+    }
+  }
+
+
+
  .login-menu__box {
     z-index: 10;
-    min-width: 80%;
+    width: 100%;
     position: absolute;
     overflow: hidden;
     background-color: $light-purple;
@@ -69,4 +110,75 @@
     display: flex;
     justify-content: center;
     gap: 20px;
+    
+  }
+
+  .logo-container {
+    @media (width > 1024px){
+      display: none;
+    }
+  }
+
+  .login-signup-container {
+    display: none;
+    @media (width > 1024px){
+      display: block;
+      position: relative;
+      transform: translateY(-10px);
+    }
+  }
+
+  .login-signup-box {
+    display: none;
+    @media (width > 1024px){
+      display: block;
+      z-index: 25;
+      width: 200px;
+      position: absolute;
+      top: 130px;
+      right: 200px;
+      height: 0;
+      overflow: hidden;
+      
+    }
+  }
+
+
+  .login-desktop-slidein {
+    animation: login-desktop-slidein 0.5s forwards;
+  }
+
+  .login-desktop-slideout {
+    animation: login-desktop-slideout 0.5s forwards;
+  }
+
+  @keyframes login-desktop-slidein {
+    0% {height: 0px}
+    100% {height: 200px}
+  }
+
+  @keyframes login-desktop-slideout {
+    0% {height: 200px}
+    100% {height: 0px}
+  }
+
+  .login-menu {
+    @media (width > 1024px) {
+      display: none;
+    }
+  }
+
+  .header-line {
+    display: none;
+    @media (width > 1024px) {
+      display: block;
+      z-index: 20;
+      position: absolute;
+      left: 0;
+      top: 15vh;
+      width: 100vw;
+      height: 2px;
+      background-color: black;
+    }
+    
   }

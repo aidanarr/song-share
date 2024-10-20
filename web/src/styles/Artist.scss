@@ -5,6 +5,7 @@
 }
 
 .artist-card{
+    position: relative;
     max-width: 100%;
     height: auto;
     border: 2px solid $light-gray;
@@ -16,6 +17,30 @@
     justify-content: space-between;
     gap: 3px;
     word-wrap: break-word;
+
+    &__music {
+        display: none;
+        @media (width > 1024px) {
+            display: inline-block;
+            position: absolute;
+            right: 10px;
+            top: -5px;
+            color: $purple;
+        }
+    }
+
+    @media (width > 1024px) {
+        padding: 20px;
+        width: 300px;
+        height: 150px;
+
+        &:hover {
+            cursor: pointer;
+            .artist-card__music {
+                animation: bounce 0.5s forwards;
+            }
+        }
+    }
 
     &__title {
         font: $titles;
@@ -30,5 +55,11 @@
         object-fit: cover;
         object-position: top center;
     }
+}
+
+@keyframes bounce {
+    0% {transform: translateY(0px)}
+    30% {transform: translateY(-20px)}
+    100% {transform: translateY(0px)}
 }
 

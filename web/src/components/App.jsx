@@ -36,6 +36,7 @@ function App() {
       <div className="page">
         {modal ? <Modal setModal={setModal} modal={modal} setShowSongs={setShowSongs} modalId={modalId} newSongId={newSongId} newArtistId={newArtistId} /> : false}
         {loader ? <Loader /> : false}
+        <div className="page__main">
         <Header isLogged={isLogged} setIsLogged={setIsLogged} setToken={setToken} setUser={setUser} setLoader={setLoader} />
         <Sidebar />
         <Routes>
@@ -63,6 +64,7 @@ function App() {
             <NotFound />
           } />
         </Routes>
+        </div>
         <div className="purple-circle"></div>
       </div>
     </>

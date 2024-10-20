@@ -11,6 +11,24 @@
     align-items: center;
     padding: $padding-main;
     padding-top: 40px;
+
+    @media (width > 1024px) {
+        align-items: flex-start;
+        padding-left: 100px;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    &__cards {
+        @media (width > 1024px) {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 50px;
+        }
+
+    }
 }
 
 .artist-detail{
@@ -22,8 +40,15 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 5px;
     position: relative;
+
+    @media (width > 1024px) {
+        width: 40%;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 
     &__music{
         color: $purple;
@@ -81,6 +106,12 @@
     flex-direction: column;
     gap: 5px;
     position: relative;
+
+    @media (width > 1024px) {
+        width: 40%;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 
     &__title {
         font: $titles;
