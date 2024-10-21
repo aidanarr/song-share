@@ -32,7 +32,7 @@
     position: relative;
 
     @media (width > 1024px) {
-        width: 30%;
+        min-width: 30%;
         padding-left: 40px;
         padding-right: 40px;
     }
@@ -84,6 +84,15 @@
         &--genre {
             font: $main-font-smaller;
         }
+
+        &--url {
+            @media (width > 1024px) {
+                &:hover {
+                    cursor: pointer;
+                    color: $light-purple;
+                }
+            }
+        }
     }
 
     &__user {
@@ -105,6 +114,12 @@
             border: none;
             color: $gray;
             font-size: 18px;
+            @media (width > 1024px) {
+                &:hover {
+                    cursor: pointer;
+                    color: $light-purple;
+                }
+            }
         }
 
         &--delete{
@@ -117,6 +132,11 @@
     font-weight: 500;
     padding: 15px;
     color: $purple;
+    @media (width > 1024px) {
+        &:hover {
+            color: $light-purple;
+        }
+    }
 }
 
 

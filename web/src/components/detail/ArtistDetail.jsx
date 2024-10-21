@@ -4,6 +4,7 @@ import fetchArtistId from "/src/services/fetchArtistId.js"
 import fetchDeleteArtist from "/src/services/fetchDeleteArtist.js"
 import NotFound from "../common/NotFound.jsx"
 import ModalDelete from "../common/ModalDelete.jsx"
+import placeholder from "/src/images/placeholder.jpg"
 
 const ArtistDetail = ({ setLoader, user, token }) => {
 
@@ -71,6 +72,10 @@ const ArtistDetail = ({ setLoader, user, token }) => {
     return songs
   }
 
+  const handleImageError = (ev) => {
+    ev.target.src = placeholder
+  }
+
   return (
     <>{modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="artist" modalDelete={modalDelete} deleteArtist={handleDelete} /> : false}
     <div className="artist-detail-container">
@@ -78,7 +83,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
       <div className="artist-detail-container__cards">
         <article className="artist-detail">
           <h2 className="artist-detail__title">{artist.name}</h2>
-          <img className="artist-detail__img" src={artist.img} />
+          <img className="artist-detail__img" onError={handleImageError} src={artist.img ? artist.img : placeholder} />
           <p>{artist.bio}</p>
           <div className="artist-detail__icons">
           {renderEditBtn()}

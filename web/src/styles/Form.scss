@@ -68,6 +68,11 @@
     font-weight: 500;
     padding: 15px;
     color: $purple;
+    @media (width > 1024px) {
+        &:hover {
+            color: $light-purple;
+        }
+    }
 }
 
 input {

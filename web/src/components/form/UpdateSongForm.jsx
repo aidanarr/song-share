@@ -212,7 +212,7 @@ const UpdateSongForm = ({ user, token, setLoader }) => {
           type="text"
           name="img"
           id="img"
-          maxLength="1"
+          maxLength="1000"
           value={inputValue.img}
           placeholder="Please provide an image url."
         />

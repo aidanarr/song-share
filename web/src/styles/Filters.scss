@@ -6,8 +6,10 @@
     text-align: left;
     order: 1;
     font-weight: 450;
+    padding-top: 15px;
 
     @media (width > 1024px) {
+        padding-top: 0px;
         width: 60%;  
     }
 }

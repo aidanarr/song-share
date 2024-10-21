@@ -1,0 +1,23 @@
+@import "./variables";
+
+.not-found {
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $padding-main;
+    padding-top: 40px;
+
+    @media (width > 1024px) {
+        align-items: flex-start;
+        padding-left: 100px;
+        justify-content: flex-start;
+    }
+
+    h2 {
+        font: $main-titles;
+    }
+}

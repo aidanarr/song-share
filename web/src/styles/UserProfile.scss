@@ -11,6 +11,11 @@
     align-items: center;
     padding: $padding-main;
     padding-top: 40px;
+    @media (width > 1024px) {
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-left: 100px;
+    }
 }
 
 .username{
@@ -25,7 +30,7 @@
     gap: 10px;
 
     @media (width > 1024px) {
-        width: 80%;
+        width: 70%;
     }
 
     &__card {
@@ -39,6 +44,12 @@
         align-items: center;
         gap: 3px;
         word-wrap: break-word;
+        &:hover {
+            @media (width > 1024px) {
+                transform: scale(103%);
+                transition: 0.1s ease-in-out;
+            }
+        }
 
         &--title{
             max-width: 60%;
@@ -53,6 +64,11 @@
             border: 2px solid $light-purple;
             padding: 5px;
             border-radius: 10px;
+            &:hover {
+                @media (width > 1024px) {
+                    background-color: $light-purple;
+                }
+            }
         }
     }
 }

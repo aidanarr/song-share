@@ -4,6 +4,7 @@ import fetchSongId from "/src/services/fetchSongId.js"
 import fetchDeleteSong from "/src/services/fetchDeleteSong.js"
 import NotFound from "../common/NotFound.jsx"
 import ModalDelete from "../common/ModalDelete.jsx"
+import placeholder from "/src/images/placeholder.jpg"
 
 
 export const SongDetail = ({ setLoader, user, token
@@ -91,6 +92,10 @@ export const SongDetail = ({ setLoader, user, token
     }   
   }
 
+  const handleImageError = (ev) => {
+    ev.target.src = placeholder
+  }
+
   return (
     <>
     {modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="song" modalDelete={modalDelete} deleteSong={handleDelete} /> : false}
@@ -101,10 +106,10 @@ export const SongDetail = ({ setLoader, user, token
           <h2 className="song-detail__title">{song.title}</h2>
           <p className="song-detail__album">{song.album}</p>
           <p className="song-detail__artist">by {renderArtists()}</p>
-          <img className="song-detail__img" src={song.img} />
+          <img className="song-detail__img" onError={handleImageError} src={song.img ? song.img : placeholder} />
           <div className="song-detail__details">
             <div>
-              <p className="song-detail__details--year">year 2017</p>
+              <p className="song-detail__details--year">year {song.year}</p>
               <p className="song-detail__details--genre">genre: {song.genre}</p>
             </div>
             <a className="song-detail__details--url" href={song.url}>

@@ -10,4 +10,10 @@
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 1px;
+
+    @media (width > 1024px) {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }

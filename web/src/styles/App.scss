@@ -24,6 +24,7 @@
 @import "./UserProfile.scss";
 @import "./Logo.scss";
 @import "./Sidebar.scss";
+@import "./NotFound.scss";
 
 :root {
   font: $main-font;
@@ -75,6 +76,10 @@ body {
   bottom: -60%;
   left: -70%;
   border-radius: 100%;
+
+  @media (width > 1024px) {
+    display: none;
+  }
  }
 
  .input {

@@ -295,7 +295,7 @@ async function deleteSong(req, res) {
           name: user,
         },
         {
-          $pull: { my_songs: id },
+          $pull: { my_songs: id }
         }
       );
       await Song.findOneAndDelete({

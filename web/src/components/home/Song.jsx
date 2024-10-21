@@ -1,5 +1,6 @@
 import "/src/styles/Song.scss"
 import { useNavigate } from "react-router-dom"
+import placeholder from "/src/images/placeholder.jpg"
 
 const Song = ({ songData }) => {
 
@@ -34,6 +35,10 @@ const Song = ({ songData }) => {
     }   
   }
 
+  const handleImageError = (ev) => {
+    ev.target.src = placeholder
+  }
+
   return (
     <div className="card-container">
         <a className="url" id="song-url" href={songData.url} target="_blank">{renderIcon()}</a>
@@ -43,7 +48,7 @@ const Song = ({ songData }) => {
             <p className="song-card__text--title">{songData.title}</p>
             <p className="song-card__text--artist">{renderArtists()}</p> 
           </div>          
-          <img className="song-card__img" src={songData.img} />          
+          <img className="song-card__img" onError={handleImageError} src={songData.img ? songData.img : placeholder} />          
         </article>
     </div>
   )

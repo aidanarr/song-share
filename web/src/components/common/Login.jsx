@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import fetchLogin from "/src/services/fetchLogin.js"
 import fetchSignup from "/src/services/fetchSignup.js"
 
@@ -9,6 +9,29 @@ const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
     pass: "",
   });
   const [errorMsg, setErrorMsg] = useState("");
+  const [userSignUp, setUserSignUp] = useState(false);
+
+  useEffect(() => {
+    fetchLogin(userData).then((response) => {
+      if (response.success) {
+        setToken(response.token)
+        setUser(userData.user)
+        setLoader(true)
+        setUserId(response.id)
+        setErrorMsg("")
+        setTimeout(() => {
+          setLoader(false)
+          setIsLogged(true)
+          setUserData({
+            user: "",
+            pass: "",
+          })
+        }, 1000)
+      } else if (!response.success) {
+        console.log(response)
+      }
+    })
+  }, [userSignUp])
 
   function handleInput(ev){
     const value = ev.target.value;
@@ -43,7 +66,7 @@ const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
       } else if (id === "signup"){
         fetchSignup(userData).then((response) => {
           if (response.success) {
-            setErrorMsg(response.message)
+            setUserSignUp(true);
           } else if (!response.success) {
             setErrorMsg(response.message)
           }
