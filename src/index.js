@@ -10,10 +10,12 @@ const routerUser = require("./api/routes/user.routes")
 require("dotenv").config();
 
 const app = express();
-app.use(cors({
-  origin: "https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app"
-}));
 app.use(express.json());
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
+app.options('*', cors());
 app.use("/", routerSongs);
 app.use("/", routerArtists);
 app.use("/", routerUser);
