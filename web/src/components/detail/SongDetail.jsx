@@ -7,7 +7,7 @@ import ModalDelete from "../common/ModalDelete.jsx"
 import placeholder from "/src/images/placeholder.jpg"
 
 
-export const SongDetail = ({ setLoader, user, token
+export const SongDetail = ({ setLoader, user, token, loader
  }) => {
 
   const [song, setSong] = useState({});
@@ -96,11 +96,9 @@ export const SongDetail = ({ setLoader, user, token
     ev.target.src = placeholder
   }
 
-  return (
-    <>
-    {modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="song" modalDelete={modalDelete} deleteSong={handleDelete} /> : false}
-    <div className="song-detail-container">
-      {song.id ? (
+  const renderPage = () => {
+    if (!loader){
+      return song.id ? (
         <article className="song-detail">
           <i className="fa-solid fa-music song-detail__music"></i>
           <h2 className="song-detail__title">{song.title}</h2>
@@ -129,7 +127,15 @@ export const SongDetail = ({ setLoader, user, token
         </article>
       ) : (
         <NotFound />
-      )}
+      )
+    } else return false
+  }
+
+  return (
+    <>
+    {modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="song" modalDelete={modalDelete} deleteSong={handleDelete} /> : false}
+    <div className="song-detail-container">
+      {renderPage()}
       <div className="back-link">
         <Link to="/">Back</Link>
       </div>

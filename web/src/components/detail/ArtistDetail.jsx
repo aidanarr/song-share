@@ -6,7 +6,7 @@ import NotFound from "../common/NotFound.jsx"
 import ModalDelete from "../common/ModalDelete.jsx"
 import placeholder from "/src/images/placeholder.jpg"
 
-const ArtistDetail = ({ setLoader, user, token }) => {
+const ArtistDetail = ({ setLoader, user, token, loader }) => {
 
   const [artist, setArtist] = useState({});
   const [modalDelete, setModalDelete] = useState(false)
@@ -76,10 +76,9 @@ const ArtistDetail = ({ setLoader, user, token }) => {
     ev.target.src = placeholder
   }
 
-  return (
-    <>{modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="artist" modalDelete={modalDelete} deleteArtist={handleDelete} /> : false}
-    <div className="artist-detail-container">
-      {artist.id ?
+  const renderPage = () => {
+    if (!loader) {
+      return artist.id ?
       <div className="artist-detail-container__cards">
         <article className="artist-detail">
           <h2 className="artist-detail__title">{artist.name}</h2>
@@ -98,7 +97,14 @@ const ArtistDetail = ({ setLoader, user, token }) => {
       </div>
        : 
         <NotFound />
-      }
+    } else return false
+  }
+
+  return (
+    <>
+    {modalDelete ? <ModalDelete setModalDelete={setModalDelete} modalId="artist" modalDelete={modalDelete} deleteArtist={handleDelete} /> : false}
+    <div className="artist-detail-container">
+      {renderPage()}
       <div className="back-link">
         <Link to="/">Back</Link>
       </div>

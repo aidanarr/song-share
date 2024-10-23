@@ -45,10 +45,10 @@ function App() {
           <Main setLoader={setLoader} isLogged={isLogged} showSongs={showSongs} setShowSongs={setShowSongs} />
           } />
           <Route path="/song/:id" element={
-          <SongDetail token={token} user={user} setLoader={setLoader} />
+          <SongDetail loader={loader} token={token} user={user} setLoader={setLoader} />
           }/>
           <Route path="/artist/:id" element={
-          <ArtistDetail token={token} user={user} setLoader={setLoader} />
+          <ArtistDetail loader={loader} token={token} user={user} setLoader={setLoader} />
           }/>
           <Route path="/song/add" element={
             <SongForm isLogged={isLogged} setModalId={setModalId} setNewSongId={setNewSongId} setModal={setModal} user={user} token={token} />
