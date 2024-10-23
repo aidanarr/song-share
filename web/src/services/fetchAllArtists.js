@@ -1,6 +1,6 @@
 
 const fetchAllArtists = () => {
-    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/artists" )
+    return fetch("https://song-share-server.vercel.app/artists" )
     .then((response) => response.json())
     .then((responseData) => { 
       if (responseData.success) {

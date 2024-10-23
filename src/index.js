@@ -12,10 +12,9 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: "*",
+  origin: "https://song-share-server.vercel.app/",
   credentials: true
 }));
-app.options('*', cors());
 app.use("/", routerSongs);
 app.use("/", routerArtists);
 app.use("/", routerUser);

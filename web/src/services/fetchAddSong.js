@@ -1,6 +1,6 @@
 
 const fetchAddSong = (songData, token) => {
-    return fetch(`https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/songs/add`, {
+    return fetch(`https://song-share-server.vercel.app/songs/add`, {
         method: "POST",
         body: JSON.stringify(songData),
         headers: {

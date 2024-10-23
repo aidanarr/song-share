@@ -1,6 +1,6 @@
 
 const fetchSignup = (userData) => {
-    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/signup", {
+    return fetch("https://song-share-server.vercel.app/signup", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

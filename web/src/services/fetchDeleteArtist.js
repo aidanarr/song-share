@@ -1,6 +1,6 @@
 
 const fetchDeleteArtist = (user, id, token) => {
-    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/artists/delete/" + id, {
+    return fetch("https://song-share-server.vercel.app/artists/delete/" + id, {
       method: "DELETE",
       body: JSON.stringify({
         user: user
