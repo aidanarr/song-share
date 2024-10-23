@@ -24,7 +24,7 @@ app.listen(PORT, () => {
 });
 
 // connect to MongoDB
-mongoose.connect("mongodb+srv://" + process.env.USERNAME + ":" + process.env.PASS + "@cluster0.yppen.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", 
+mongoose.connect(process.env.MONGODB_URI, 
     { // db name
       dbName: 'music',
   })
