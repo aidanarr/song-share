@@ -28,7 +28,7 @@ const LoginDesktop = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) 
           })
         }, 1000)
       } else if (!response.success) {
-        console.log(response)
+        console.error(response)
       }
     })
   }, [userSignUp])

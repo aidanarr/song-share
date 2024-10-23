@@ -46,7 +46,7 @@ const ArtistDetail = ({ setLoader, user, token }) => {
             navigate("/")
             setLoader(false)
           }, 1000)
-        } else console.log("couldn't delete")
+        } else console.error("couldn't delete")
       })
     }catch (err) {
       console.error(err)

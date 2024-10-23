@@ -14,7 +14,7 @@
   }
  
   .profile-icon{
-   z-index: 14;
+    z-index: 24;
     width: 30px;
     height: 30px;
     border-radius: 100%;
@@ -32,7 +32,7 @@
   }
 
   .profile-icon-desktop{
-    z-index: 14;
+     z-index: 24;
      width: 40px;
      height: 40px;
      border-radius: 100%;
@@ -47,7 +47,7 @@
    }
 
   .profile-icon-logged {
-    z-index: 14;
+    z-index: 24;
     width: 30px;
     height: 30px;
     border-radius: 100%;
@@ -61,7 +61,7 @@
   }
 
   .profile-icon-logged-desktop {
-    z-index: 14;
+    z-index: 24;
     width: 40px;
     height: 40px;
     border-radius: 100%;
@@ -76,7 +76,7 @@
 
 
  .login-menu__box {
-    z-index: 10;
+    z-index: 23;
     width: 100%;
     position: absolute;
     overflow: hidden;
@@ -134,7 +134,9 @@
       display: block;
       z-index: 25;
       background-color: white;
-      width: 200px;
+      padding-left: 20px;
+      padding-right: 20px;
+      width: 240px;
       position: absolute;
       top: 130px;
       right: 200px;
@@ -168,17 +170,139 @@
     }
   }
 
+  .header-decoration {
+    display: none;
+    @media (width > 1024px) {
+      display: flex;
+      align-items: flex-end;
+      z-index: 20;
+      position: absolute;
+      width: 100vw;
+      height: 15vh;
+    }
+
+  }
+
   .header-line {
     display: none;
     @media (width > 1024px) {
       display: block;
       z-index: 20;
-      position: absolute;
-      left: 0;
-      top: 15vh;
-      width: 100vw;
-      height: 2px;
+      width: 100%;
+      height: 0.35vh;
       background-color: black;
     }
-    
+
   }
+
+  .header-wave {
+    display: none;
+    
+    @media (width > 1024px) {
+      display: block;
+      z-index: 21;
+      position: absolute;
+      top: 34.5%;
+      left: 17vw;
+      width: 12vw;
+      height: 18vh;
+      background-image: url("../images/wave.png");
+      background-color: $light-purple;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    @media (width > 1200px) {
+      top: 34%;
+    }
+
+    @media (width > 1380px) {
+      top: 31.5%;
+    }
+
+    @media (height < 794px) {
+      width: 10vw;
+    }
+    @media (height < 659px) {
+      width: 8vw;
+    }
+  }
+
+  .header-decoration {
+    display: none;
+    @media (width > 1024px) {
+      display: flex;
+      align-items: flex-end;
+      z-index: 20;
+      position: absolute;
+      width: 100vw;
+      height: 15vh;
+    }
+
+  }
+
+  .header-line {
+    display: none;
+    @media (width > 1024px) {
+      display: block;
+      position: absolute;
+      z-index: 20;
+      top: 15vh;
+      width: 100vw;
+      height: 0.4vh;
+      background-color: black;
+    }
+
+    @media (width > 1200px) {
+
+    }
+
+    @media (width > 1380px) {
+
+    }
+
+  }
+
+  .header-wave {
+    display: none;
+    
+    @media (width > 1024px) {
+      display: block;
+      z-index: 21;
+      position: absolute;
+      top: 5.4vh;
+      left: 17vw;
+      width: 12vw;
+      height: 18vh;
+      background-image: url("../images/wave.png");
+      background-color: $light-purple;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    @media (width > 1200px) {
+      top: 5.5vh;
+    }
+
+    @media (width > 1380px) {
+      top: 5.3vh;
+    }
+
+    @media (width > 1500px) {
+      top: 5.2vh;
+    }
+
+    @media (width > 1600px) {
+      top: 5vh;
+    }
+
+    @media (height < 794px) {
+      width: 10vw;
+    }
+    @media (height < 659px) {
+      width: 8vw;
+    }
+  }
+

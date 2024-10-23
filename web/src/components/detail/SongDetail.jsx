@@ -62,7 +62,7 @@ export const SongDetail = ({ setLoader, user, token
             setLoader(false)
           }, 1000)
 
-        } else console.log("couldn't delete")
+        } else console.error("couldn't delete")
       })
     }catch (err) {
       console.error(err)

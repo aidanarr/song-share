@@ -61,6 +61,7 @@ const Header = ({ setToken, setLoader, setUser, setIsLogged, isLogged }) => {
 
   return (
     <>
+      <div className="header-wave"></div>
       <div className="header-line"></div>
       <div
         className={`login-signup-box ${hidden ? "hidden" : ""} ${

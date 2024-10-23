@@ -252,7 +252,6 @@ async function updateSong(req, res) {
         // if all artists already exist
         const existingArtistsId = songArtist.map((artist) => artist._id);
         updatedData.artist = existingArtistsId;
-        console.log(existingArtistsId)
         await Song.findOneAndUpdate(
           {
             _id: id,
