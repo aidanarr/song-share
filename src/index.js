@@ -10,11 +10,11 @@ const routerUser = require("./api/routes/user.routes")
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 app.use("/", routerSongs);
 app.use("/", routerArtists);
 app.use("/", routerUser);
+app.use(cors());
 
 // server config
 const PORT = process.env.PORT || 5000;
