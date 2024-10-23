@@ -8,7 +8,7 @@ router.get("/songs/:id", getSongById);
 
 router.post("/songs/add", authorize, addSong);
 
-router.put("/songs/update/:id", updateSong);
+router.put("/songs/update/:id", authorize, updateSong);
 
 router.delete("/songs/delete/:id", authorize, deleteSong);
 
