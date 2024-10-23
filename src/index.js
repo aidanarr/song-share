@@ -10,14 +10,14 @@ const routerUser = require("./api/routes/user.routes")
 require("dotenv").config();
 
 const app = express();
+app.use(cors({
+  origin: "https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app"
+}));
 app.use(express.json());
 app.use("/", routerSongs);
 app.use("/", routerArtists);
 app.use("/", routerUser);
-app.use(cors({
-  origin: "https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app",
-  credentials: true
-}));
+
 
 // server config
 const PORT = process.env.PORT || 5000;
@@ -37,6 +37,8 @@ mongoose.connect(process.env.MONGODB_URI,
   .catch((err) => {
     console.log(err)
   });
+
+
 
 
 
