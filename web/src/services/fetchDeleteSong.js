@@ -1,6 +1,6 @@
 
 const fetchDeleteSong = (user, id, token) => {
-    return fetch("http://localhost:5000/songs/delete/" + id, {
+    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/songs/delete/" + id, {
       method: "DELETE",
       body: JSON.stringify({
         user: user

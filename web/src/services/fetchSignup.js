@@ -1,6 +1,6 @@
 
 const fetchSignup = (userData) => {
-    return fetch("http://localhost:5000/signup", {
+    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/signup", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

@@ -1,6 +1,6 @@
 
 const fetchUpdateArtist = (artistData, token, id) => {
-    return fetch("http://localhost:5000/artists/update/" + id, {
+    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/artists/update/" + id, {
         method: "PUT",
         body: JSON.stringify(artistData),
         headers: {

@@ -1,6 +1,6 @@
 
 const fetchSongId = (id) => {
-    return fetch("http://localhost:5000/songs/" + id)
+    return fetch("https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/songs/" + id)
     .then((response) => response.json())
     .then((response) => { 
       if (response.success) {
