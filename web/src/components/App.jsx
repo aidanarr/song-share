@@ -17,6 +17,7 @@ import UpdateSongForm from "./form/UpdateSongForm.jsx"
 import UpdateArtistForm from "./form/UpdateArtistForm.jsx"
 import Modal from "./common/Modal.jsx"
 import UserProfile from "./user/UserProfile.jsx"
+import Footer from "./common/Footer.jsx";
 
 function App() {
   const [token, setToken] = useState("");
@@ -65,6 +66,7 @@ function App() {
           } />
         </Routes>
         </div>
+        <Footer />
         <div className="purple-circle"></div>
       </div>
     </>
