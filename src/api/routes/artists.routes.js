@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const  { authorize } = require("../utils/middleware");
+const  { authorize, CORS } = require("../utils/middleware");
 const { getAllArtists, getArtistById, addArtist, updateArtist, deleteArtist } = require("../controllers/artists.controllers");
 
-router.get("/artists", getAllArtists);
-router.get("/artists/:id", getArtistById);
+router.get("/artists", CORS, getAllArtists);
+router.get("/artists/:id", CORS, getArtistById);
 
-router.post("/artists/add", authorize, addArtist);
+router.post("/artists/add", CORS, authorize, addArtist);
 
-router.put("/artists/update/:id", authorize, updateArtist);
+router.put("/artists/update/:id", CORS, authorize, updateArtist);
 
-router.delete("/artists/delete/:id", authorize, deleteArtist);
+router.delete("/artists/delete/:id", CORS, authorize, deleteArtist);
 
 module.exports = router;
