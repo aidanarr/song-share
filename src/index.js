@@ -14,7 +14,9 @@ app.use(express.json());
 app.use("/", routerSongs);
 app.use("/", routerArtists);
 app.use("/", routerUser);
-app.use(cors());
+app.use(cors({
+  origin: "https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/"
+}));
 
 // server config
 const PORT = process.env.PORT || 5000;
