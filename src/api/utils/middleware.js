@@ -25,12 +25,4 @@ function authorize (req, res, next) {
     } 
 };
 
-//CORS middleware
-function CORS(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "https://example.com");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    next();
-}
-
-module.exports = { authorize, CORS };
+module.exports = { authorize };
