@@ -15,7 +15,8 @@ app.use("/", routerSongs);
 app.use("/", routerArtists);
 app.use("/", routerUser);
 app.use(cors({
-  origin: "https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app/"
+  origin: "https://song-share-server-axsfgsfpd-aidanars-projects.vercel.app",
+  credentials: true
 }));
 
 // server config
