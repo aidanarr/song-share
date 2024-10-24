@@ -2,7 +2,7 @@
 
 Welcome to **Song Share**. In this application you can browse through songs and artists recommended by our users, and also recommend some of your own!
 
-![Screenshot of the application](/public/screenshot.png)
+![Screenshot of the application](/src/public/screenshot.png)
 
 ## Technologies
 
@@ -24,4 +24,4 @@ The home screen will display a list of all songs added by our users by default, 
 
 Thanks for taking a look! :white_heart:
 
-![Psyduck gif](/public/psyduck.png)
+![Psyduck gif](/src/public/psyduck.png)
