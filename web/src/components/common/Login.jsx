@@ -86,8 +86,8 @@ const Login = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) => {
           <label htmlFor="pass">Password</label>
           <input onChange={handleInput} id="pass" name="pass" type="password" value={userData.pass} />
           <div className="signup-btn-box">
-            <button className="button" onClick={handleClick} id="signup">Signup</button>
-            <button className="button" onClick={handleClick} id="login">Login</button>
+            <button className="button" onClick={handleClick} id="signup">Sign up</button>
+            <button className="button" onClick={handleClick} id="login">Log in</button>
           </div>
         </form>
         <p className="error-msg">{errorMsg ? errorMsg : false}</p>
