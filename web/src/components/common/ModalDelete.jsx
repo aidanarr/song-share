@@ -23,8 +23,10 @@ export const ModalDelete = ({ modalId, deleteSong, deleteArtist, modalDelete, se
     <div className="modal modal-delete">
       <div className={`modal-window ${modalDelete ? "popup-aninmation" : ""}`}>
         <p>Are you sure you want to delete this {modalId === "song" ? "song" : "artist"}?</p>
-        <button onClick={handleYesBtn} className="button">Yes</button>
-        <button onClick={handleNoBtn} className="button">No, wait!</button>
+        <div className="modal-window__buttons">
+          <button onClick={handleYesBtn} className="button">Yes</button>
+          <button onClick={handleNoBtn} className="button">No, wait!</button>
+        </div>
       </div>
     <div className="modal-bg">
     </div>

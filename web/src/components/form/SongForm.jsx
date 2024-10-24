@@ -136,7 +136,7 @@ const SongForm = ({ user, token, setModal, setNewSongId, setModalId, isLogged })
             onChange={handleCheckbox}
           />
           <div className="form__extra-artists filters">
-            <label htmlFor="artist2">Artist 2:</label>
+            <label htmlFor="artist2">Artist 2</label>
             <input
               onChange={handleChange}
               type="text"

@@ -40,9 +40,12 @@ export const Modal = ({newSongId, newArtistId, modalId, setShowSongs, setModal, 
   return (
     <div className="modal">
       <div className={`modal-window ${modal ? "popup-aninmation" : ""}`}>
-        <button className="button" onClick={handleClickNew}>See new {modalId === "song-btn" ? "song" : "artist"}</button>
-        <button className="button" onClick={handleClickAdd}>Add new {modalId === "song-btn" ? "song" : "artist"}</button>
-        <button className="button" onClick={handleClickBrowse}>Browse {modalId === "song-btn" ? "songs" : "artists"}</button>
+        <p>New {modalId === "song-btn" ? "song" : "artist"} added successfully!</p>
+        <div className="modal-window__buttons">
+          <button className="button" onClick={handleClickNew}>See new {modalId === "song-btn" ? "song" : "artist"}</button>
+          <button className="button" onClick={handleClickAdd}>Add new {modalId === "song-btn" ? "song" : "artist"}</button>
+          <button className="button" onClick={handleClickBrowse}>Browse {modalId === "song-btn" ? "songs" : "artists"}</button>
+        </div>
       </div>
     <div className="modal-bg">
     </div>
