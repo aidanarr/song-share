@@ -14,7 +14,7 @@ To run the application use `npm install`, then go inside the web folder and run 
 
 The home screen will display a list of all songs added by our users by default, you can use the songs/artists switch to toggle between songs and artists.
 
-- Open the "Filters" drop-down menu to filter by name, album or genre.
+- Open the "Filters" drop-down menu to filter by title, artist or genre.
 - Click any of the songs/artists to go to their detail page, where you will see more info about them.
 - Click the user icon at the top right of the page to log in or sign up.
 - Click the + button at the top of the list to add a new song or artist (you must be logged in first).
