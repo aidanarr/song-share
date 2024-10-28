@@ -79,7 +79,7 @@ const LoginDesktop = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) 
 
   return (    
       <>
-        <form>
+        <form className="login-desktop">
           <label htmlFor="user">Username</label>
           <input onChange={handleInput} id="user" name="user" type="text" value={userData.user} />
           <label htmlFor="pass">Password</label>
@@ -88,8 +88,9 @@ const LoginDesktop = ({ setUserId, setToken, setLoader, setUser, setIsLogged }) 
             <button className="button" onClick={handleClick} id="signup">Sign up</button>
             <button className="button" onClick={handleClick} id="login">Log in</button>
           </div>
+          <p className="error-msg">{errorMsg ? errorMsg : false}</p>
         </form>
-        <p className="error-msg">{errorMsg ? errorMsg : false}</p>
+        
       </>
   );
 }

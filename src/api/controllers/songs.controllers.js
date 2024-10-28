@@ -169,44 +169,54 @@ async function updateSong(req, res) {
       // find if artists already exist
       const songArtist = await Artist.find({ name: { $in: artists } });
 
-      // let artistId = [];
-
       let updatedData = {
         title: title,
-        artist: [],
         year: year,
         album: album,
         img: img,
         genre: genre,
         url: url,
       };
-
-      // check if current user equals song creator user
       
       if (songArtist.length === 0) {
         // if no artist exist
-        const artistArray = artists.map((artist) => {
-          return {
-            name: artist,
-            user: userCreator._id
-          }
-        })
-        const newArtists = await Artist.insertMany(artistArray)
-        const artistId = newArtists.map((artist) => artist._id)
-        updatedData.artist = artistId
-
-        await Song.findOneAndUpdate(
-          {
-            _id: id,
-          },
-          {
-            $set: updatedData,
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
+       
+        if (artists.length === 0) {
+          await Song.findOneAndUpdate(
+            {
+              _id: id,
+            },
+            {
+              $set: updatedData,
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+        } else {
+          const artistArray = artists.map((artist) => {
+            return {
+              name: artist,
+              user: userCreator._id
+            }
+          })
+          const newArtists = await Artist.insertMany(artistArray)
+          const artistId = newArtists.map((artist) => artist._id)
+          updatedData.artist = artistId
+          await Song.findOneAndUpdate(
+            {
+              _id: id,
+            },
+            {
+              $set: updatedData,
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+        }
 
         res.status(200).json({ success: true, updated_data: updatedData })
 

@@ -250,16 +250,12 @@
       z-index: 20;
       top: 15vh;
       width: 100vw;
-      height: 0.4vh;
+      height: 0.3vh;
       background-color: black;
     }
 
     @media (width > 1200px) {
-
-    }
-
-    @media (width > 1380px) {
-
+      height: 0.4vh;
     }
 
   }
@@ -306,3 +302,13 @@
     }
   }
 
+  .login-desktop {
+    position: relative;
+
+    .error-msg {
+      z-index: 20;
+      position: absolute;
+      top: 90px;
+      font-size: 14px;
+    }
+  }
